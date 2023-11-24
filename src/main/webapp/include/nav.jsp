@@ -80,7 +80,7 @@
         <c:if test="${level <= 4}"><a class="nav-link" href="memberLogout.mem">Logout</a></c:if>
       </li>
       <li class="nav-item">
-        <c:if test="${level > 4}"><a class="nav-link" href="memberJoin.mem">Join</a></c:if>
+        <a class="nav-link" href="memberJoin.mem">Join</a>
       </li>            
     </ul>
   </div>  
