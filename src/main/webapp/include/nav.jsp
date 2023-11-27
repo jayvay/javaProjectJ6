@@ -28,18 +28,18 @@
 		});
 	}
 </script>
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+<nav class="navbar navbar-expand-sm navbar-dark" style="background-color:black">
 	<!-- 햄버거 버튼 -->
-  <a class="navbar-brand" href="http://192.168.50.52:9090/javaProject">Home</a>
+  <a class="navbar-brand" href="http://192.168.50.52:9090/javaProjectJ6">Home</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="collapsibleNavbar">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" href="${ctp}/GuestList">Guest</a>
+        <a class="nav-link" href="shopMain.shop">SHOP</a>
       </li>
-     	<c:if test="${level <= 4}">
+     	<%-- <c:if test="${level <= 4}"> --%>
 	      <li class="nav-item">
 	        <a class="nav-link" href="boardList.bo">Board</a>
 	      </li>
@@ -74,7 +74,7 @@
 					    </div>
 					  </div>
 	      </li>
-      </c:if>
+      <%-- </c:if> --%>
      	<li class="nav-item">
         <c:if test="${level > 4}"><a class="nav-link" href="memberLogin.mem">Login</a></c:if>
         <c:if test="${level <= 4}"><a class="nav-link" href="memberLogout.mem">Logout</a></c:if>

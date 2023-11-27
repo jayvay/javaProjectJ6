@@ -8,63 +8,145 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>memberJoin.jsp</title>
 	<jsp:include page="/include/bs4.jsp" />
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-	<link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script src="${ctp}/js/woo.js"></script>
 	<script>
 		'use strict'
 		
-		let res = "";
-		let myname = "";
+		let idCheckSw = 0;
+		let nickCheckSw = 0;
+		
+		function idCheck() {
+			let mid = myform.mid.value;
+			let url = "memberIdCheck.mem?mid="+mid;
+	    	
+	    	if(mid.trim() == "") {
+	    		alert("아이디를 입력하세요!");
+	    		myform.mid.focus();
+	    	}
+	    	else {
+	    		idCheckSw = 1;
+	    		myform.mid.readOnly = true;
+	    		window.open(url,"nWin","width=580px,height=250px");
+	    	}
+		}
+		
+		function nickCheck() {
+    	let nickName = myform.nickName.value;
+    	let url = "${ctp}/memberNickCheck.mem?nickName="+nickName;
+    	
+    	if(nickName.trim() == "") {
+    		alert("닉네임을 입력하세요!");
+    		myform.nickName.focus();
+    	}
+    	else {
+    		nickCheckSw = 1;
+    		myform.nickName.readOnly = true;
+    		window.open(url,"nWin","width=580px,height=250px");
+    	}
+    }
 		
 		function signupCheck() {
-		    let mid = document.getElementById("mid").value;
-		    let pwd = document.getElementById("pwd").value;
-		    let pwdcheck = document.getElementById("pwdcheck").value;
-		    myname = document.getElementById("myname").value;
-		    let birth = document.getElementById("birthday").value;
-		    let age = document.getElementById("age").value;
-		    let tel = document.getElementById("tel").value;
-		    let email = document.getElementById("email").value;
-		    let gender = document.myform.gender.value;
-		    let nation = document.myform.nation.value;
-		    let agree = document.getElementById("agree");
-		    
-		    if(mid=="" || mid==" ") {alert("필수 입력 사항을 전부 입력하셔야 합니다.")}
-		    else if(pwd=="" || pwd==" ") {alert("필수 입력 사항을 전부 입력하셔야 합니다.")}
-		    else if(pwdcheck=="" || pwdcheck==" ") {alert("필수 입력 사항을 전부 입력하셔야 합니다.")}
-		    else if(myname=="" || myname==" ") {alert("필수 입력 사항을 전부 입력하셔야 합니다.")}
-		    else if(birth=="" || birth==" ") {alert("필수 입력 사항을 전부 입력하셔야 합니다.")}
-		    else if(email=="" || email==" ") {alert("필수 입력 사항을 전부 입력하셔야 합니다.")}
-		    else if(agree.checked==false) {alert("개인정보 수집 밎 이용 약관에 동의하셔야 합니다.")}
-		    else {
-		        res += "아이디 : " + mid + "\n";
-		        res += "이름 : " + myname + "\n";
-		        res += "생년월일 : " + birth + "\n";
-		        res += "나이 : " + age + "\n";
-		        res += "연락처 : " +  tel + "\n";
-		        res += "이메일 : " + email + "\n";
-		        res += "성별 : " + gender + "\n";
-		        res += "국가 : " + nation + "\n";
-		        
-		        console.log(res);
-		        document.getElementById("memberinfo").value = res;
 		
-		        document.getElementById("mid").readOnly = true; 
-		        document.getElementById("pwd").readOnly = true; 
-		        document.getElementById("pwdcheck").readOnly = true; 
-		        document.getElementById("myname").readOnly = true; 
-		        document.getElementById("birthday").readOnly = true;
-		        document.getElementById("age").readOnly = true; 
-		        document.getElementById("tel").readOnly = true; 
-		        document.getElementById("press") = disabled; 
-		        document.getElementById("email").readOnly = true; 
-		    }
-		    myname = document.getElementById("myname").value;
-		    
-		    myform.submit();
+			let regMid = /^[a-zA-Z0-9_]{4,10}$/;
+    	let regPwd = /(?=.*[0-9a-zA-Z]).{4,20}$/;
+      let regNickName = /^[가-힣]+$/;
+      let regName = /^[가-힣a-zA-Z]+$/;
+      let regEmail =/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
+    	let regTel = /\d{3}-\d{3,4}-\d{4}$/g;
+		
+	    let mid = document.getElementById("mid").value.trim();
+	    let pwd = document.getElementById("pwd").value;
+	    let pwdcheck = document.getElementById("pwdcheck").value;
+	    let name = document.getElementById("name").value;
+	    let nickName = document.getElementById("nickName").value;
+	    let birthday = document.getElementById("birthday").value;
+	    let tel1 = myform.tel1.value;
+    	let tel2 = myform.tel2.value.trim();
+    	let tel3 = myform.tel3.value.trim();
+    	let tel = tel1 + "-" + tel2 + "-" + tel3;
+    	let email1 = myform.email1.value.trim();
+    	let email2 = myform.email2.value;
+    	let email = email1 + "@" + email2;
+	    let gender = document.myform.gender.value;
+	    let agree = document.getElementById("agree");
+	    
+	    let submitFlag = 0;
+	    /* 
+	    if(mid=="" || mid==" ") {alert("필수 입력 사항을 전부 입력하셔야 합니다.")}
+	    else if(pwd=="" || pwd==" ") {alert("필수 입력 사항을 전부 입력하셔야 합니다.")}
+	    else if(pwdcheck=="" || pwdcheck==" ") {alert("필수 입력 사항을 전부 입력하셔야 합니다.")}
+	    else if(myname=="" || myname==" ") {alert("필수 입력 사항을 전부 입력하셔야 합니다.")}
+	    else if(birth=="" || birth==" ") {alert("필수 입력 사항을 전부 입력하셔야 합니다.")}
+	    else if(email=="" || email==" ") {alert("필수 입력 사항을 전부 입력하셔야 합니다.")}
+	    else if(agree.checked==false) {alert("개인정보 수집 밎 이용 약관에 동의하셔야 합니다.")}
+	     */
+	    if(!regMid.test(mid))	{
+	    	alert("아이디는 4~10자리의 영문 대/소문자와 숫자, 특수문자 '_'만 입력해주세요.");
+	    	myform.mid.focus();
+	    	return false;
+	    }
+	    else if(!regPwd.test(pwd)) {
+	    	alert("비밀번호는 1개 이상의 문자와 특수문자 조합의 6~24자리로 입력해주세요.");
+	    	myform.pwd.focus();
+	    	return false;
+	    }
+	    else if(pwd != pwdcheck) {
+	    	alert("입력하신 비밀번호가 같지 않습니다.");
+	    	myform.pwd.focus();
+	    	return false;
+	    }
+	    else if(!regName.test(name)) {
+	    	alert("성명은 한글과 영문 대/소문자로 입력해주세요.");
+	    	myform.name.focus();
+	    	return false;
+	    }
+	    else if(!regNickName.test(nickName)) {
+        alert("닉네임은 한글만 사용가능합니다.");
+        myform.nickName.focus();
+        return false;
+      }
+	    else if(!regEmail.test(email)) {
+	    	alert("이메일 형식에 맞지 않습니다.");
+	    	myform.email1.focus();
+        return false;
+	    }
+	    else if(tel2 != "" && tel3 != "") {
+	    	if(!regTel.test(tel)) {
+	    		alert("전화번호는 010-0000-0000 형식에 맞게 숫자로 입력해주세요.");
+	    		myform.tel2.focus();
+	    		return false;
+	    	}
+	    }
+	    else {
+	    	submitFlag = 1;
+	    }
+	    
+	    let postcode = myform.postcode.value + " ";
+    	let roadAddress = myform.roadAddress.value + " ";
+    	let detailAddress = myform.detailAddress.value + " ";
+    	let extraAddress = myform.extraAddress.value + " ";
+  		myform.address.value = postcode + "/" + roadAddress + "/" + detailAddress + "/" + extraAddress + "/";
+	    
+  		if(submitFlag == 1) {
+    		if(idCheckSw == 0) {
+    			alert("아이디 중복체크버튼을 눌러주세요!");
+    			document.getElementById("midBtn").focus();
+    		}
+    		else if(nickCheckSw == 0) {
+    			alert("닉네임 중복체크버튼을 눌러주세요!");
+    			document.getElementById("nickNameBtn").focus();
+    		}
+    		else {
+	    		myform.email.value = email;
+	    		myform.tel.value = tel;
+	    		
+		    	myform.submit();
+    		}
+    	}
+    	else {
+    		alert("회원가입 실패~~ 폼의 내용을 확인하세요.");
+    	}
 		}
 	</script>
 </head>
@@ -72,75 +154,97 @@
 <jsp:include page="/include/header.jsp" />
 <p><br/></p>
 	<div class="container" style="width:700px">
-		<h4 style="text-align: center; padding:25px;">회 원 가 입</h4>
+		<h3 style="font-weight:bolder; text-align:center; padding:25px;">회 원 가 입</h3>
       <form name="myform" method="post" action="memberJoinOk.mem" class="was-validated">
         <div class="form-group">
             <label for="mid">아이디</label>
-            <div class="input-group mb-3">
-                <input type="text" class="form-control" name= mid id="mid" placeholder="아이디를 입력하세요" autofocus required />
-                <div class="input-group-append"><input type="button" value="중복확인" class="btn btn-outline-primary"></div>
-                <div class="invalid-feedback">필수 정보입니다.</div>
+            <div class="input-group">
+                <input type="text" class="form-control" name= mid id="mid" placeholder="아이디를 입력하세요" autofocus required/>
+                <div class="input-group-append"><input type="button" value="중복확인" onclick="idCheck()" class="btn btn-dark"></div>
             </div>
+	          <div class="invalid-feedback">필수 정보입니다.</div>
         </div>
         <div class="form-group">
             <label for="pwd">비밀번호</label>
-            <input type="password" name="pwd" id="pwd" placeholder="비밀번호를 입력하세요" class="form-control mb-3" required />
+            <input type="password" name="pwd" id="pwd" placeholder="비밀번호를 입력하세요" class="form-control" required />
             <div class="invalid-feedback">필수 정보입니다.</div>
         </div>
         <div class="form-group">
             <label for="pwdcheck">비밀번호 확인</label>
-            <input type="password" name="pwdcheck" id="pwdcheck" placeholder="비밀번호를 확인하세요" class="form-control mb-3" required />
+            <input type="password" name="pwdcheck" id="pwdcheck" placeholder="비밀번호를 확인하세요" class="form-control" required />
             <div class="invalid-feedback">필수 정보입니다.</div>
         </div>
         <div class="form-group">
             <label for="myname">이름</label>
-            <input type="text" name="myname" id="myname" placeholder="이름을 입력하세요" class="form-control mb-3" required />
+            <input type="text" name="name" id="name" placeholder="이름을 입력하세요" class="form-control" required />
+            <div class="invalid-feedback">필수 정보입니다.</div>
+        </div>   
+        <div class="form-group">
+            <label for="nickName">닉네임</label>
+            <div class="input-group">
+            	<input type="text" name="nickName" id="nickName" placeholder="닉네임을 입력하세요" class="form-control" required />
+            	<div class="input-group-append"><input type="button" id="nickNameBtn" value="중복확인" class="btn btn-dark" onclick="nickCheck()"/></div>
+            </div>
             <div class="invalid-feedback">필수 정보입니다.</div>
         </div>   
         <div class="form-group">
             <label for="birthday">생년월일</label>
-            <input type="text" name="birthday" id="birthday" placeholder="생년월일 8자리" class="form-control mb-3" required /> 
+            <input type="date" name="birthday" id="birthday" class="form-control" required /> 
             <div class="invalid-feedback">필수 정보입니다.</div>
-        </div>
-        <div class="form-group">     
-            <label for="age">나이</label>
-            <input type="number" name="age" id="age" value="8" min="8" max="99" maxlength="2" class="form-control mb-3" />
-            <div class="valid-feedback">8세 이상만 가입 가능합니다.</div>
         </div>
         <div class="form-group">
             <label for="tel">연락처</label><br/>
-            <input style="width: 100%;" type="tel" name="tel" id="tel" class="col form-control mr-3" placeholder="-없이 숫자만 입력" />
+        		<div class="input-group mb-3">
+			        <input type="text" name="tel1" value="010" readonly class="form-control"/>&nbsp;&nbsp;-&nbsp;&nbsp;
+			        <input type="text" name="tel2" size=4 maxlength=4 placeholder="3 또는 4자리 숫자" class="form-control" required/>&nbsp;&nbsp;-&nbsp;&nbsp;
+			        <input type="text" name="tel3" size=4 maxlength=4 placeholder="3 또는 4자리 숫자" class="form-control" required/>
+            <div class="invalid-feedback">필수 정보입니다.</div>
+			   	  </div>
         </div>
         <div class="form-group">
             <label for="email">이메일</label>
-            <input type="email" name="email" id="email" class="form-control" placeholder="_____@_____.com" required />
+            <div class="input-group mb-3">
+		          <input type="text" class="form-control" placeholder="Email을 입력하세요." id="email1" name="email1" required />
+		          <div class="input-group-append">
+		            <select name="email2" class="custom-select">
+		              <option value="naver.com" selected>naver.com</option>
+		              <option value="hanmail.net">hanmail.net</option>
+		              <option value="hotmail.com">hotmail.com</option>
+		              <option value="gmail.com">gmail.com</option>
+		              <option value="nate.com">nate.com</option>
+		              <option value="yahoo.com">yahoo.com</option>
+		            </select>
+	          </div>
             <div class="invalid-feedback">필수 정보입니다.</div>
         </div>
+        <div class="form-group">
+		      <label for="address">주소</label>
+		      <div class="input-group mb-1">
+		        <input type="text" name="postcode" id="sample6_postcode" placeholder="우편번호" class="form-control" required />
+		        <div class="input-group-append">
+		          <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" class="btn btn-dark">
+		        </div>
+		      </div>
+		      <input type="text" name="roadAddress" id="sample6_address" size="50" placeholder="주소" required class="form-control mb-1">
+		      <div class="input-group mb-1">
+		        <input type="text" name="detailAddress" id="sample6_detailAddress" required placeholder="상세주소" class="form-control"> &nbsp;&nbsp;
+		        <div class="input-group-append">
+		          <input type="text" name="extraAddress" id="sample6_extraAddress" placeholder="참고항목" class="form-control">
+		        </div>
+		      </div>
+		    </div>
         <div class="form-group">
             <label for="gender">성별</label>
             <div class="row">
                 <div class="col form-group btn-group btn-group-toggle" data-toggle="buttons">
-                    <label class="btn btn-outline-primary">
+                    <label class="btn btn-outline-dark">
                         <input type="radio" name="gender" id="genderm" value="남자" /> 남자
                     </label>
-                    <label class="btn btn-outline-primary">
+                    <label class="btn btn-outline-dark">
                         <input type="radio" name="gender" id="genderf" value="여자" /> 여자
                     </label>
-                    <label class="btn btn-outline-primary">
+                    <label class="btn btn-outline-dark">
                         <input type="radio" name="gender" id="gendern" value="선택안함" checked /> 선택안함
-                    </label>
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="nation">국가</label>
-            <div class="row">
-                <div class="col form-group btn-group btn-group-toggle" data-toggle="buttons">
-                    <label class="btn btn-outline-primary">
-                        <input type="radio" name="nation" id="nationk" value="내국인" checked /> 내국인
-                    </label>
-                    <label class="btn btn-outline-primary">
-                        <input type="radio" name="nation" id="nationf" value="외국인" /> 외국인
                     </label>
                 </div>
             </div>
