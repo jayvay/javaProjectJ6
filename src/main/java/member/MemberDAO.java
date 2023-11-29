@@ -1,9 +1,10 @@
-package javaProjectJ6.member;
+package member;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import common.GetConn;
 
@@ -130,6 +131,60 @@ public class MemberDAO {
 			pstmtClose();
 		}
 		return res;
+	}
+
+	public ArrayList<String> getMidSearch(String name, String email) {
+		ArrayList<String> vos = new ArrayList<>();
+		try {
+			sql = "select mid from member where name = ? and email = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, name);
+			pstmt.setString(2, email);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				vos.add(rs.getString("mid"));
+			}
+		} catch (SQLException e) {
+			System.out.println("SQL 오류 : " + e.getMessage());
+		} finally {
+			rsClose();
+		}
+		return vos;
+	}
+
+	public int getPwdSearch(String mid, String email) {
+		int res = 0;
+		try {
+			sql = "select idx from member where mid = ? and email = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mid);
+			pstmt.setString(2, email);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				res = rs.getInt("idx");
+			}
+		} catch (SQLException e) {
+			System.out.println("SQL 오류 : " + e.getMessage());
+		} finally {
+			rsClose();
+		}
+		return res;
+	}
+
+	public void setMemberPwdUpdate(String mid, String imsiPwdUid) {
+		try {
+			sql = "update member set pwd = ? where mid = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, imsiPwdUid);
+			pstmt.setString(2, mid);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("SQL 오류 : " + e.getMessage());
+		} finally {
+			pstmtClose();
+		}
 	}
 
 }

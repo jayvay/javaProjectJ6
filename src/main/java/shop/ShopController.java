@@ -27,9 +27,14 @@ public class ShopController extends HttpServlet {
 //			request.getRequestDispatcher("/").forward(request, response);
 //		}
 		if(com.equals("/shopMain")) {
-//			command = new BoardListCommand();
-//			command.execute(request, response);
+			command = new ShopMainCommand();
+			command.execute(request, response);
 			viewPage += "/shopMain.jsp";
+		}
+		if(com.equals("/shopAlbumDetail")) {
+			command = new ShopAlbumDetailCommand();
+			command.execute(request, response);
+			viewPage += "/shopAlbumDetail.jsp";
 		}
 		
 		request.getRequestDispatcher(viewPage).forward(request, response);

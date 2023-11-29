@@ -21,7 +21,7 @@
 			let url = "memberIdCheck.mem?mid="+mid;
 	    	
 	    	if(mid.trim() == "") {
-	    		alert("아이디를 입력하세요!");
+	    		alert("아이디를 입력해주세요.");
 	    		myform.mid.focus();
 	    	}
 	    	else {
@@ -36,7 +36,7 @@
     	let url = "${ctp}/memberNickCheck.mem?nickName="+nickName;
     	
     	if(nickName.trim() == "") {
-    		alert("닉네임을 입력하세요!");
+    		alert("닉네임을 입력해주세요.");
     		myform.nickName.focus();
     	}
     	else {
@@ -72,15 +72,7 @@
 	    let agree = document.getElementById("agree");
 	    
 	    let submitFlag = 0;
-	    /* 
-	    if(mid=="" || mid==" ") {alert("필수 입력 사항을 전부 입력하셔야 합니다.")}
-	    else if(pwd=="" || pwd==" ") {alert("필수 입력 사항을 전부 입력하셔야 합니다.")}
-	    else if(pwdcheck=="" || pwdcheck==" ") {alert("필수 입력 사항을 전부 입력하셔야 합니다.")}
-	    else if(myname=="" || myname==" ") {alert("필수 입력 사항을 전부 입력하셔야 합니다.")}
-	    else if(birth=="" || birth==" ") {alert("필수 입력 사항을 전부 입력하셔야 합니다.")}
-	    else if(email=="" || email==" ") {alert("필수 입력 사항을 전부 입력하셔야 합니다.")}
-	    else if(agree.checked==false) {alert("개인정보 수집 밎 이용 약관에 동의하셔야 합니다.")}
-	     */
+
 	    if(!regMid.test(mid))	{
 	    	alert("아이디는 4~10자리의 영문 대/소문자와 숫자, 특수문자 '_'만 입력해주세요.");
 	    	myform.mid.focus();
@@ -111,30 +103,32 @@
 	    	myform.email1.focus();
         return false;
 	    }
-	    else if(tel2 != "" && tel3 != "") {
-	    	if(!regTel.test(tel)) {
-	    		alert("전화번호는 010-0000-0000 형식에 맞게 숫자로 입력해주세요.");
-	    		myform.tel2.focus();
-	    		return false;
-	    	}
+	    else if(tel2 != "" && tel3 != "" && !regTel.test(tel)) {
+    		alert("전화번호는 010-XXXX-XXXX 형식에 맞게 숫자로 입력해주세요.");
+    		myform.tel2.focus();
+    		return false;
+	    }
+	    else if(agree.checked == false) {
+	    	alert("개인정보 수집 밎 이용 약관에 동의하셔야 합니다.")
+	    	return false;
 	    }
 	    else {
 	    	submitFlag = 1;
 	    }
 	    
-	    let postcode = myform.postcode.value + " ";
-    	let roadAddress = myform.roadAddress.value + " ";
-    	let detailAddress = myform.detailAddress.value + " ";
-    	let extraAddress = myform.extraAddress.value + " ";
-  		myform.address.value = postcode + "/" + roadAddress + "/" + detailAddress + "/" + extraAddress + "/";
+	    let postcode = myform.postcode.value;
+    	let roadAddress = myform.roadAddress.value;
+    	let detailAddress = myform.detailAddress.value;
+    	let extraAddress = myform.extraAddress.value;
+    	myform.address.value = postcode + "/" + roadAddress + "/" + detailAddress + "/" + extraAddress + "/";
 	    
   		if(submitFlag == 1) {
     		if(idCheckSw == 0) {
-    			alert("아이디 중복체크버튼을 눌러주세요!");
+    			alert("아이디 중복확인을 하지 않았습니다.");
     			document.getElementById("midBtn").focus();
     		}
     		else if(nickCheckSw == 0) {
-    			alert("닉네임 중복체크버튼을 눌러주세요!");
+    			alert("닉네임 중복확인을 하지 않았습니다.");
     			document.getElementById("nickNameBtn").focus();
     		}
     		else {
@@ -145,7 +139,7 @@
     		}
     	}
     	else {
-    		alert("회원가입 실패~~ 폼의 내용을 확인하세요.");
+    		alert("회원가입 실패! 다시 시도하세요.");
     	}
 		}
 	</script>
@@ -160,7 +154,7 @@
             <label for="mid">아이디</label>
             <div class="input-group">
                 <input type="text" class="form-control" name= mid id="mid" placeholder="아이디를 입력하세요" autofocus required/>
-                <div class="input-group-append"><input type="button" value="중복확인" onclick="idCheck()" class="btn btn-dark"></div>
+                <div class="input-group-append"><input type="button" id="midBtn" value="중복확인" onclick="idCheck()" class="btn btn-dark"></div>
             </div>
 	          <div class="invalid-feedback">필수 정보입니다.</div>
         </div>
@@ -175,7 +169,7 @@
             <div class="invalid-feedback">필수 정보입니다.</div>
         </div>
         <div class="form-group">
-            <label for="myname">이름</label>
+            <label for="name">이름</label>
             <input type="text" name="name" id="name" placeholder="이름을 입력하세요" class="form-control" required />
             <div class="invalid-feedback">필수 정보입니다.</div>
         </div>   
@@ -220,14 +214,14 @@
         <div class="form-group">
 		      <label for="address">주소</label>
 		      <div class="input-group mb-1">
-		        <input type="text" name="postcode" id="sample6_postcode" placeholder="우편번호" class="form-control" required />
+		        <input type="text" name="postcode" id="sample6_postcode" placeholder="우편번호" class="form-control" required/>
 		        <div class="input-group-append">
 		          <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" class="btn btn-dark">
 		        </div>
 		      </div>
-		      <input type="text" name="roadAddress" id="sample6_address" size="50" placeholder="주소" required class="form-control mb-1">
+		      <input type="text" name="roadAddress" id="sample6_address" size="50" placeholder="주소" class="form-control mb-1" required>
 		      <div class="input-group mb-1">
-		        <input type="text" name="detailAddress" id="sample6_detailAddress" required placeholder="상세주소" class="form-control"> &nbsp;&nbsp;
+		        <input type="text" name="detailAddress" id="sample6_detailAddress" placeholder="상세주소" class="form-control" required> &nbsp;&nbsp;
 		        <div class="input-group-append">
 		          <input type="text" name="extraAddress" id="sample6_extraAddress" placeholder="참고항목" class="form-control">
 		        </div>
@@ -257,6 +251,10 @@
             </label>
         </div>
         <button style="width: 100%;" type="button" class="btn btn-primary mt-3" onclick="signupCheck()" />가입할래요</button></div>
+        <button style="width: 100%;" type="button" class="btn btn-secondary" onclick="location.href='memberLogin.mem';">취소</button>
+ 	  <input type="hidden" name="email" />
+    <input type="hidden" name="tel" />
+   	<input type="hidden" name="address" />
     </form>
 	</div>
 <p><br/></p>

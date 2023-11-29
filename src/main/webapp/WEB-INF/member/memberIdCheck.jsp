@@ -35,7 +35,7 @@
 <body>
 <p><br/></p>
 	<div class="container">
-		<h3>아이디 체크 폼</h3>
+		<h3>아이디 중복 확인</h3>
 		<c:if test="${res == 1}">
 			<h4>아이디 <font color="blue"><b>${mid}</b></font> 은(는) 사용 가능합니다.</h4>
 			<p><input type="button" value="창닫기" onclick="sendCheck()" />

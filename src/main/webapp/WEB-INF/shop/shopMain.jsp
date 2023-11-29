@@ -9,91 +9,166 @@
 <title>shopMain.jsp</title>
 <jsp:include page="/include/bs4.jsp" />
 <style>
-	body,ul,li {
-		list-style: none;
+	body {
+	  font-family: Arial, Helvetica, sans-serif;
 	}
-	a {
-		text-decoration: inherit;
-		color: white;
+	
+	* {
+	  box-sizing: border-box;
 	}
-	nav {
-		text-align: left;
+	
+	/* Create a column layout with Flexbox */
+	.row {
+	  display: flex;
 	}
-	nav ul {
-		background-color: black;
+	
+	/* Left column (menu) */
+	.left {
+	  flex: 5%;
+	  padding: 15px 0;
 	}
-	nav ul li {
-		display: inline-block;
-		position: relative;
-		width: 110px;
-		padding: 10px;
+	
+	.left h2 {
+	  padding-left: 8px;
 	}
-	nav ul li:hover {
-		background-color: gray;
+	
+	/* Right column (page content) */
+	.right {
+	  flex: 65%;
+	  padding: 15px;
 	}
- 	nav ul li ul {
-    display: none;
-    position: absolute;
-    top: 40px;
-    left: 0px;
-  }
-  nav ul li:hover ul {
-    display: block;
+	
+	/* Style the navigation menu inside the left column */
+	#myMenu {
+	  list-style-type: none;
+	  padding: 0;
+	  margin: 0;
+	}
+	
+	#myMenu li a {
+	  padding: 12px;
+	  text-decoration: none;
+	  color: black;
+	  display: block
+	}
+	
+	#myMenu li a:hover {
+	  background-color: #eee;
+	}
+	img {
+		margin:12px;
+	}
+	img:hover {
+	  background-color: gray;
+	  opacity : 0.7;
+	}
+	a:hover {
+	  color : green;
   }
 </style>
 </head>
 <body>
 <jsp:include page="/include/header.jsp" />
 <p><br/></p>
-	<div class="container">
-		<div id="leftWindow">
-			<nav>
-				<ul>
-					<li><a href="">주메뉴1</a>
-						<ul>
-							<li><a href="">서브메뉴1</a></li>
-							<li><a href="">서브메뉴2</a></li>
-							<li><a href="">서브메뉴3</a></li>
-							<li><a href="">서브메뉴4</a></li>
-						</ul>
-					</li>
-					<li><a href="">주메뉴2</a>
-						<ul>
-							<li><a href="">서브메뉴1</a></li>
-							<li><a href="">서브메뉴2</a></li>
-							<li><a href="">서브메뉴3</a></li>
-							<li><a href="">서브메뉴4</a></li>
-						</ul>
-					</li>
-					<li><a href="">주메뉴3</a>
-						<ul>
-							<li><a href="">서브메뉴1</a></li>
-							<li><a href="">서브메뉴2</a></li>
-							<li><a href="">서브메뉴3</a></li>
-							<li><a href="">서브메뉴4</a></li>
-						</ul>
-					</li>
-					<li><a href="">주메뉴4</a>
-						<ul>
-							<li><a href="">서브메뉴1</a></li>
-							<li><a href="">서브메뉴2</a></li>
-							<li><a href="">서브메뉴3</a></li>
-							<li><a href="">서브메뉴4</a></li>
-						</ul>
-					</li>
-				</ul>
-			</nav>
-		</div>
-		<div id="rightWindow">
-			<table>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-			</table>
+	<div style="margin:0 100px">
+		<div class="row">
+		  <div class="left" style="background-color:#bbb;">
+		    <h2>Menu</h2>
+		    <ul id="myMenu" style="text-align:center">
+		      <li><a href="#">HTML</a></li>
+		      <li><a href="#">CSS</a></li>
+		      <li><a href="#">JavaScript</a></li>
+		      <li><a href="#">PHP</a></li>
+		      <li><a href="#">Python</a></li>
+		      <li><a href="#">jQuery</a></li>
+		      <li><a href="#">SQL</a></li>
+		      <li><a href="#">Bootstrap</a></li>
+		      <li><a href="#">Node.js</a></li>
+		    </ul>
+		  </div>
+		  
+		  <div class="right">
+		    <table class="table table-border text-center">
+		    	<tr>
+		    		<td>
+    					<div>
+		    				<a href="shopAlbumDetail.shop?alName=${vo.alName}">
+		    					<img src="https://image.yes24.com/goods/8181580/L" width="150px">
+		    					<br/>뭐뭐뭐
+		    				</a>
+		    			</div>
+		    			<div>10000원</div>
+		    		</td>
+		    		<td>
+		    			<div>
+		    				<a href="">
+		    					<img src="https://image.yes24.com/goods/123374202/L" width="150px">
+		    					<br/>뭐뭐뭐
+		    				</a>
+		    			</div>
+		    			<div>10000원</div>
+		    		</td>
+		    		<td>
+		    			<div>
+		    				<a href="">
+		    					<img src="https://image.yes24.com/goods/70861317/L" width="150px">
+		    					<br/>뭐뭐뭐
+		    				</a>
+		    			</div>
+		    			<div>10000원</div>
+		    		</td>
+		    		<td>
+		    			<div>
+		    				<a href="">
+		    					<img src="https://image.yes24.com/goods/66177953/L" width="150px">
+		    					<br/>뭐뭐뭐
+		    				</a>
+		    			</div>
+		    			<div>10000원</div>
+		    		</td>
+		    		<td>
+		    			<div>
+		    				<a href="">
+		    					<img src="https://image.yes24.com/goods/89405990/L" width="150px">
+		    					<br/>뭐뭐뭐
+		    				</a>
+		    			</div>
+		    			<div>10000원</div>
+		    		</td>
+		    		<c:forEach var="vo" items="${vos}" varStatus="st">
+			    		<td>
+			    			<div>
+			    				<a href="shopAlbumDetail.shop?alName=${vo.alName}&singer=${vo.singer}">
+			    					<img src="${vo.photo}" width="150px">
+			    					<br/>${vo.alName}
+			    				</a>
+			    			</div>
+			    			<div>${vo.price}</div>
+			    		</td>
+		    		</c:forEach>
+		    	</tr>
+		    </table>
+		  </div>
 		</div>
 	</div>
+	
+	<script>
+	function myFunction() {
+	  var input, filter, ul, li, a, i;
+	  input = document.getElementById("mySearch");
+	  filter = input.value.toUpperCase();
+	  ul = document.getElementById("myMenu");
+	  li = ul.getElementsByTagName("li");
+	  for (i = 0; i < li.length; i++) {
+	    a = li[i].getElementsByTagName("a")[0];
+	    if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+	      li[i].style.display = "";
+	    } else {
+	      li[i].style.display = "none";
+	    }
+	  }
+	}
+	</script>
 <p><br/></p>
 <jsp:include page="/include/footer.jsp" />
 </body>

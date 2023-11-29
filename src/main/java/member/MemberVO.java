@@ -1,4 +1,4 @@
-package javaProjectJ6.member;
+package member;
 
 public class MemberVO {
 	private int idx;

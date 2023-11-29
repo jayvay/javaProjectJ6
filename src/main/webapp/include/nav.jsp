@@ -44,7 +44,7 @@
 	        <a class="nav-link" href="boardList.bo">Board</a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="${ctp}/PdsList">Pds</a>
+	        <a class="nav-link" href="adminMain.ad">ADMIN</a>
 	      </li>    
 	      <li class="nav-item ml-2 mr-2">
 	         <div class="dropdown">
@@ -67,8 +67,8 @@
 					    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">MyPage</button>
 					    <div class="dropdown-menu">
 					      <a class="dropdown-item" href="memberMain.mem">회원메인방</a>
-					      <a class="dropdown-item" href="memberPwdCheck.mem">회원정보수정</a>
-					      <a class="dropdown-item" href="mList.mem">회원리스트</a>
+					      <a class="dropdown-item" href="#" data-toggle="modal" data-target="#myModalPwdCheck" >회원정보수정</a>
+					      <a class="dropdown-item" href="memberInfoUpdate.mem">수정~</a>
 					      <a class="dropdown-item" href="javascript:memberDelCheck()">회원탈퇴</a>
 					      <c:if test="${sLevel == 0}"><a class="dropdown-item" href="adminMain.ad">관리자메뉴</a></c:if>
 					    </div>
@@ -85,3 +85,35 @@
     </ul>
   </div>  
 </nav>	
+ <!-- 비밀번호 찾기 -->
+<div class="modal fade" id="myModalPwdCheck">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+    
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title"><b>회원정보 수정</b></h4><br/>
+        <button type="button" class="close" data-dismiss="modal"><i class="ri-close-circle-fill"></i></button>
+      </div>
+      
+      <!-- Modal body -->
+      <div class="modal-body">
+        <table class="table table-borderless">
+        	<div class="text-center">회원정보 수정을 위해 비밀번호를 확인합니다</div>
+		  	  <tr>
+		  	  	<td><input type="password" name="pwdCheck" id="pwdCheck" class="form-control" placeholder="비밀번호를 입력하세요"/></td>
+		  	  </tr>
+		  	  <tr>
+		  	    <td class="text-center"><input type="button" value="비밀번호확인" onclick="passwordFind()" class="btn btn-dark mt-2" /></td>
+		  	  </tr>
+        </table>
+      </div>
+      
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+      </div>
+      
+     </div> 
+	</div>
+</div>
