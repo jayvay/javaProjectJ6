@@ -6,6 +6,8 @@
 %>
 <c:set var="ctp" value="${pageContext.request.contextPath}" />
 <script>
+	'use strict';
+
 	function memberDelCheck() {
 		let ans = confirm("정말 탈퇴하시겠습니까?");
 		if(ans) {
@@ -27,6 +29,7 @@
 			}
 		});
 	}
+	
 </script>
 <nav class="navbar navbar-expand-sm navbar-dark" style="background-color:black">
 	<!-- 햄버거 버튼 -->
@@ -62,22 +65,23 @@
 					    </div>
 					  </div>
 	      </li>
-	      <li class="nav-item ml-2 mr-2">
-	         <div class="dropdown">
-					    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">MyPage</button>
-					    <div class="dropdown-menu">
-					      <a class="dropdown-item" href="memberMain.mem">회원메인방</a>
-					      <a class="dropdown-item" href="#" data-toggle="modal" data-target="#myModalPwdCheck" >회원정보수정</a>
-					      <a class="dropdown-item" href="memberInfoUpdate.mem">수정~</a>
-					      <a class="dropdown-item" href="javascript:memberDelCheck()">회원탈퇴</a>
-					      <c:if test="${sLevel == 0}"><a class="dropdown-item" href="adminMain.ad">관리자메뉴</a></c:if>
-					    </div>
-					  </div>
-	      </li>
+	      <c:if test="${level < 4}">
+		      <li class="nav-item ml-2 mr-2">
+		         <div class="dropdown">
+						    <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" style="color:gray; background-color:black;">MyPage</button>
+						    <div class="dropdown-menu">
+						      <a class="dropdown-item" href="memberMain.mem">마이페이지</a>
+						      <a class="dropdown-item" href="#" data-toggle="modal" data-target="#myModalPwdCheck" >회원정보수정</a>
+						      <a class="dropdown-item" href="javascript:memberDelCheck()">회원탈퇴</a>
+						      <c:if test="${sLevel == 0}"><a class="dropdown-item" href="adminMain.ad">관리자메뉴</a></c:if>
+						    </div>
+						  </div>
+		      </li>
+	      </c:if>
       <%-- </c:if> --%>
      	<li class="nav-item">
         <c:if test="${level > 4}"><a class="nav-link" href="memberLogin.mem">Login</a></c:if>
-        <c:if test="${level <= 4}"><a class="nav-link" href="memberLogout.mem">Logout</a></c:if>
+        <c:if test="${level < 4}"><a class="nav-link" href="memberLogout.mem">Logout</a></c:if>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="memberJoin.mem">Join</a>
@@ -98,15 +102,18 @@
       
       <!-- Modal body -->
       <div class="modal-body">
-        <table class="table table-borderless">
-        	<div class="text-center">회원정보 수정을 위해 비밀번호를 확인합니다</div>
-		  	  <tr>
-		  	  	<td><input type="password" name="pwdCheck" id="pwdCheck" class="form-control" placeholder="비밀번호를 입력하세요"/></td>
-		  	  </tr>
-		  	  <tr>
-		  	    <td class="text-center"><input type="button" value="비밀번호확인" onclick="passwordFind()" class="btn btn-dark mt-2" /></td>
-		  	  </tr>
-        </table>
+	      <form name="myform" method="post" action="memberPwdCheckOk.mem" >
+	        <table class="table table-borderless">
+	        	<div class="text-center">회원정보 수정을 위해 비밀번호를 확인합니다</div>
+			  	  <tr>
+			  	  	<td><input type="password" name="pwdCheck" id="pwdCheck" class="form-control" placeholder="비밀번호를 입력하세요"/></td>
+			  	  </tr>
+			  	  <tr>
+			  	    <td class="text-center"><input type="submit" value="비밀번호확인" class="btn btn-dark mt-2" /></td>
+			  	  </tr>
+	        </table>
+	       </form>
+	        <div id="demo"></div>
       </div>
       
       <!-- Modal footer -->

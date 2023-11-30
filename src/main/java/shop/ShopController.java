@@ -31,10 +31,20 @@ public class ShopController extends HttpServlet {
 			command.execute(request, response);
 			viewPage += "/shopMain.jsp";
 		}
-		if(com.equals("/shopAlbumDetail")) {
+		else if(com.equals("/shopAlbumDetail")) {
 			command = new ShopAlbumDetailCommand();
 			command.execute(request, response);
 			viewPage += "/shopAlbumDetail.jsp";
+		}
+		else if(com.equals("/shopAlbumDetail")) {
+			command = new ShopAlbumDetailCommand();
+			command.execute(request, response);
+			viewPage += "/shopAlbumDetail.jsp";
+		}
+		else if(com.equals("/shopPay")) {
+			command = new ShopPayCommand();
+			command.execute(request, response);
+			viewPage += "/shopPay.jsp";
 		}
 		
 		request.getRequestDispatcher(viewPage).forward(request, response);

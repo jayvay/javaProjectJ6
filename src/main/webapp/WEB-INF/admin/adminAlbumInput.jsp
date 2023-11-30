@@ -12,7 +12,7 @@
 	.disc {
 		overflow: auto;
 		width: 100%;
-  	height: 150px;
+  	height: 230px;
 	}
 	
 	#discDelAll {
@@ -89,7 +89,7 @@
 		cnt++;
 		let discBox = '';
 		discBox += '<div id="dBox'+ cnt +'" class="dBox">';
-		discBox += '<textarea rows="5" name="disc" id="disc'+ cnt +'" placeholder="수록곡을 입력하세요." class="form-control mb-2 border"></textarea>';
+		discBox += '<textarea rows="7" name="disc" id="disc'+ cnt +'" placeholder="수록곡을 입력하세요." class="form-control mb-2 border"></textarea>';
 		discBox += '</div>';
 		$("#discBox").append(discBox);
 		$("#discDelAll").show();
@@ -184,8 +184,18 @@
 							<input type="text" name="singer" id="singer" class="form-control" />
 						</div>
 						<div class="form-group">
-						<label for="price">가격</label>
-							<input type="number" name="price" id="price" class="form-control" />
+						<label for="stock">재고수량</label>
+							<input type="number" name="stock" id="stock" class="form-control" />
+						</div>
+						<div class="row">
+							<div class="form-group col">
+							<label for="price">정가</label>
+								<input type="number" name="price" id="price" class="form-control" />
+							</div>
+							<div class="form-group col">
+							<label for="discount">할인율</label>
+								<input type="number" name="discount" id="discount" class="form-control" />
+							</div>
 						</div>
 						<div class="form-group">
 						<label for="relDate">발매일</label>

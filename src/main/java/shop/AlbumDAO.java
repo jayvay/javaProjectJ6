@@ -52,10 +52,12 @@ public class AlbumDAO {
 				vo.setAlName(rs.getString("alName"));
 				vo.setSinger(rs.getString("singer"));
 				vo.setPrice(rs.getInt("price"));
+				vo.setDiscount(rs.getInt("discount"));
 				vo.setPart(rs.getString("part"));
 				vo.setRelDate(rs.getString("relDate"));
 				vo.setDisc(rs.getString("disc"));
 				vo.setContent(rs.getString("content"));
+				vo.setStock(rs.getInt("stock"));
 				vo.setSaleCnt(rs.getInt("saleCnt"));
 				vo.setPhoto(rs.getString("photo"));
 				vos.add(vo);
@@ -83,10 +85,12 @@ public class AlbumDAO {
 				vo.setAlName(rs.getString("alName"));
 				vo.setSinger(rs.getString("singer"));
 				vo.setPrice(rs.getInt("price"));
+				vo.setDiscount(rs.getInt("discount"));
 				vo.setPart(rs.getString("part"));
 				vo.setRelDate(rs.getString("relDate"));
 				vo.setDisc(rs.getString("disc"));
 				vo.setContent(rs.getString("content"));
+				vo.setStock(rs.getInt("stock"));
 				vo.setSaleCnt(rs.getInt("saleCnt"));
 				vo.setPhoto(rs.getString("photo"));
 			}

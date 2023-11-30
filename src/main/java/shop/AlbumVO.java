@@ -6,10 +6,12 @@ public class AlbumVO {
 	private String alName;
 	private String singer;
 	private int price;
+	private int discount;
 	private String part;
 	private String relDate;
 	private String disc;
 	private String content;
+	private int stock;
 	private int saleCnt;
 	private String photo;
 	
@@ -37,6 +39,12 @@ public class AlbumVO {
 	public void setPrice(int price) {
 		this.price = price;
 	}
+	public int getDiscount() {
+		return discount;
+	}
+	public void setDiscount(int discount) {
+		this.discount = discount;
+	}
 	public String getPart() {
 		return part;
 	}
@@ -61,6 +69,12 @@ public class AlbumVO {
 	public void setContent(String content) {
 		this.content = content;
 	}
+	public int getStock() {
+		return stock;
+	}
+	public void setStock(int stock) {
+		this.stock = stock;
+	}
 	public int getSaleCnt() {
 		return saleCnt;
 	}
@@ -76,8 +90,8 @@ public class AlbumVO {
 	
 	@Override
 	public String toString() {
-		return "AlbumVO [idx=" + idx + ", alName=" + alName + ", singer=" + singer + ", price=" + price + ", part=" + part
-				+ ", relDate=" + relDate + ", disc=" + disc + ", content=" + content + ", saleCnt=" + saleCnt + ", photo="
-				+ photo + "]";
+		return "AlbumVO [idx=" + idx + ", alName=" + alName + ", singer=" + singer + ", price=" + price + ", discount="
+				+ discount + ", part=" + part + ", relDate=" + relDate + ", disc=" + disc + ", content=" + content + ", stock="
+				+ stock + ", saleCnt=" + saleCnt + ", photo=" + photo + "]";
 	}
 }

@@ -9,25 +9,140 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>memberInfoUpdate.jsp</title>
 <jsp:include page="/include/bs4.jsp" />
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="${ctp}/js/woo.js"></script>
+<script>
+  'use strict';
+  // 닉네임 중복버튼을 클릭했는지를 확인하기위한 변수(버튼 클릭후에는 내용 수정처리 못하도록 처리)
+  let nickCheckSw = 0;
+  
+  function updateCheck() {
+  	// 유효성 검사.....
+  	// 닉네임,성명,이메일,홈페이지,전화번호,비밀번호 등등....
+  	
+    let regNickName = /^[가-힣]+$/;
+    let regName = /^[가-힣a-zA-Z]+$/;
+    let regEmail =/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
+  	let regTel = /\d{3}-\d{3,4}-\d{4}$/g;
+  	
+  	//let nickName = myform.nickName.value;
+  	let nickName = $("#nickName").val();
+  	//let name = myform.name.value;
+  	let name = $("#name").val();
+  	let email1 = myForm.email1.value.trim();
+  	let email2 = myForm.email2.value;
+  	let email = email1 + "@" + email2;
+  	let tel1 = myForm.tel1.value;
+  	let tel2 = myForm.tel2.value.trim();
+  	let tel3 = myForm.tel3.value.trim();
+  	let tel = tel1 + "-" + tel2 + "-" + tel3;
+  	
+  	let submitFlag = 0;		// 모든 체크가 정상으로 종료되게되면 submitFlag는 1로 변경처리될수 있게 한다.
+  	
+  	
+  	// 앞의 정규식으로 정의된 부분에 대한 유효성체크
+  	if(!regNickName.test(nickName)) {
+      alert("닉네임은 한글만 사용가능합니다.");
+      myForm.nickName.focus();
+      return false;
+    }
+    else if(!regName.test(name)) {
+      alert("성명은 한글과 영문대소문자만 사용가능합니다.");
+      myForm.name.focus();
+      return false;
+    }
+    else if(!regEmail.test(email)) {
+      alert("이메일 형식에 맞지않습니다.");
+      myForm.email1.focus();
+      return false;
+    }
+    else if(tel2 != "" && tel3 != "" && !regTel.test(tel)) {
+			alert("전화번호는 010-XXXX-XXXX 형식에 맞게 숫자로 입력해주세요.");
+			myForm.tel2.focus();
+			return false;
+    }
+    else {
+    	submitFlag = 1;
+    }
+  	
+  	let postcode = myForm.postcode.value + " ";
+  	let roadAddress = myForm.roadAddress.value + " ";
+  	let detailAddress = myForm.detailAddress.value + " ";
+  	let extraAddress = myForm.extraAddress.value + " ";
+		myform.address.value = postcode + "/" + roadAddress + "/" + detailAddress + "/" + extraAddress + "/";
+  	
+  	if(submitFlag == 1) {
+  		if(nickCheckSw == 0) {
+  			alert("닉네임 중복체크버튼을 눌러주세요!");
+  			document.getElementById("nickNameBtn").focus();
+  		}
+  		else {
+  			myForm.email.value = email;
+  			myForm.tel.value = tel;
+    		
+  			myForm.submit();
+  		}
+  	}
+  	else {
+  		alert("회원정보수정 실패");
+  	}
+  	
+  }
+  
+  // 닉네임 중복체크
+  function nickCheck() {
+  	//let nickName = myform.nickName.value;
+  	//let nickName = document.getElementById("nickName").value;
+  	let nickName = $("#nickName").val();
+
+  	if(nickName == '${sNickName}') {
+  		alert("현재 닉네임을 그대로 사용합니다....");
+  		nickCheckSw = 1;
+  		//myform.nickName.readOnly = true;
+  		$("#nickName" ).prop('readonly', true);
+  		return false;
+  	}
+  	
+  	let url = "${ctp}/memberNickCheck.mem?nickName="+nickName;
+  	
+  	if(nickName == "") {
+  		alert("닉네임을 입력하세요!");
+  		myform.nickName.focus();
+  	}
+  	else {
+  		nickCheckSw = 1;
+  		//myform.nickName.readOnly = true;
+  		$("#nickName" ).prop('readonly', true);
+  		window.open(url,"nWin","width=580px,height=250px");
+  	}
+  }
+</script>
 </head>
 <body>
 <jsp:include page="/include/header.jsp" />
 <p><br/></p>
-	<div class="container">
-	  <form name="myform" method="post" action="memberUpdateOk.mem" class="was-validated" enctype="multipart/form-data" >
+	<div class="container" style="width:60%">
+	  <form name="myForm" method="post" action="memberUpdateOk.mem" class="was-validated">
 	    <h2>회 원 정 보 수 정</h2>
 	    <br/>
-	    <div>아이디 : ${sMid}</div>
 	    <div class="form-group">
-	      <label for="nickName">닉네임 : &nbsp; &nbsp;<input type="button" id="nickNameBtn" value="닉네임 중복체크" class="btn btn-secondary btn-sm" onclick="nickCheck()"/></label>
-	      <input type="text" value="${vo.nickName}" class="form-control" id="nickName" placeholder="별명을 입력하세요." name="nickName" required />
+	      <label for="name">아이디</label>
+	      <input type="text" value="${sMid}" class="form-control" id="mid" name="mid" readonly />
 	    </div>
 	    <div class="form-group">
-	      <label for="name">성명 :</label>
-	      <input type="text" value="${vo.name}" class="form-control" id="name" placeholder="성명을 입력하세요." name="name" required />
+    		<label for="nickName">닉네임 &nbsp; &nbsp;</label>
+	    	<div class="input-group">
+	    	  <input type="text" name="nickName" value="asdf" />
+		      <%-- <input type="text" value="${vo.nickName}" class="form-control" id="nickName" name="nickName" placeholder="닉네임을 입력하세요." required /> --%>
+		      <div class="input-group-append"><input type="button" id="nickNameBtn" value="닉네임 중복확인" class="btn btn-dark btn-sm" onclick="nickCheck()"/></div>
+	    	</div>
 	    </div>
 	    <div class="form-group">
-	      <label for="email1">Email address:</label>
+	      <label for="name">성명</label>
+	      <input type="text" value="${vo.name}" class="form-control"  name="name" id="name" placeholder="성명을 입력하세요." required />
+	    </div>
+	    <div class="form-group">
+	      <label for="email1">이메일</label>
 	        <div class="input-group mb-3">
 	        	<c:set var="email" value="${fn:split(vo.email , '@')}" />
 	          <input type="text" value="${email[0]}" class="form-control" placeholder="Email을 입력하세요." id="email1" name="email1" required />
@@ -44,8 +159,8 @@
 	        </div>
 	    </div>
 	    <div class="form-group">
+        <label for="gender">성별</label><br/>
 	      <div class="form-check-inline">
-	        <span class="input-group-text">성별 :</span> &nbsp; &nbsp;
 	        <label class="form-check-label">
 	          <input type="radio" class="form-check-input" name="gender" value="남자" <c:if test="${vo.gender == '남자'}">checked</c:if>>남자
 	        </label>
@@ -55,31 +170,23 @@
 	          <input type="radio" class="form-check-input" name="gender" value="여자" <c:if test="${vo.gender == '여자'}">checked</c:if>>여자
 	        </label>
 	      </div>
+	      <div class="form-check-inline">
+	        <label class="form-check-label">
+	          <input type="radio" class="form-check-input" name="gender" value="선택안함" <c:if test="${vo.gender == '선택안함'}">checked</c:if>>선택안함
+	        </label>
+	      </div>
 	    </div>
+	    
 	    <div class="form-group">
 	      <label for="birthday">생일</label>
 	      <input type="date" name="birthday" value="${fn:substring(vo.birthday, 0,10)}" class="form-control"/>
 	    </div>
 	    <div class="form-group">
+      	<label for="tel">전화번호</label><br/>
 	      <div class="input-group mb-3">
-	        <div class="input-group-prepend">
-	          <span class="input-group-text">전화번호 :</span> &nbsp;&nbsp;
-	            <select name="tel1" class="custom-select">
-	              <option value="010" ${tel1 == '010' ? selected : ''}>010</option>
-	              <option value="02" 	${tel1 == '02' ? selected : ''}>서울</option>
-	              <option value="031" ${tel1 == '031' ? selected : ''}>경기</option>
-	              <option value="032" ${tel1 == '032' ? selected : ''}>인천</option>
-	              <option value="041" ${tel1 == '041' ? selected : ''}>충남</option>
-	              <option value="042" ${tel1 == '042' ? selected : ''}>대전</option>
-	              <option value="043" ${tel1 == '043' ? selected : ''}>충북</option>
-	              <option value="051" ${tel1 == '051' ? selected : ''}>부산</option>
-	              <option value="052" ${tel1 == '052' ? selected : ''}>울산</option>
-	              <option value="061" ${tel1 == '061' ? selected : ''}>전북</option>
-	              <option value="062" ${tel1 == '062' ? selected : ''}>광주</option>
-	            </select>-
-	        </div>
-	        <input type="text" name="tel2" value="${tel2}" size=4 maxlength=4 class="form-control"/>-
-	        <input type="text" name="tel3" value="${tel2}" size=4 maxlength=4 class="form-control"/>
+          <input type="text" name="tel1" value="010" readonly class="form-control"/>-&nbsp;
+	        <input type="text" name="tel2" value="${tel2}" size=4 maxlength=4 class="form-control"/>-&nbsp;
+	        <input type="text" name="tel3" value="${tel3}" size=4 maxlength=4 class="form-control"/>
 	      </div>
 	    </div>
 	    <div class="form-group">
@@ -98,13 +205,7 @@
 	        </div>
 	      </div>
 	    </div>
-	    <div  class="form-group">
-	      회원 사진(파일용량:2MByte이내) :
-	      <img src="${ctp}/images/member/${vo.photo}" width="100px" />
-	      <input type="file" name="fName" id="file" onchange="imgCheck(this)" class="form-control-file border"/>
-	      <div><img id="photoDemo" width="100px" /></div>
-	    </div>
-	    <button type="button" class="btn btn-secondary" onclick="fCheck()">정보수정</button> &nbsp;
+	    <button type="button" class="btn btn-secondary" onclick="updateCheck()">정보수정</button> &nbsp;
 	    <button type="reset" class="btn btn-secondary">다시작성</button> &nbsp;
 	    <button type="button" class="btn btn-secondary" onclick="location.href='${ctp}/MemberLogin.mem';">돌아가기</button>
 	    
@@ -112,7 +213,6 @@
 	    <input type="hidden" name="tel" />
 	    <input type="hidden" name="address" />
 	    <input type="hidden" name="mid" value="${sMid}" />
-	    <input type="hidden" name="photo" id="photo" value="${vo.photo}" />
 	  </form>
 	</div>
 <p><br/></p>
