@@ -61,7 +61,7 @@ public class MemberLoginOkCommand implements MemberInterface {
 			response.addCookie(cookieMid);
 			
 			request.setAttribute("msg", mid + "님 로그인 되었습니다.");
-			request.setAttribute("url", "http://192.168.50.52:9090/javaProjectJ6");
+			request.setAttribute("url", "memberMain.mem");
 		}
 		else {
 			request.setAttribute("msg", "로그인 실패");

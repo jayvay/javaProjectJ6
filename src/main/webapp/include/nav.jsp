@@ -5,6 +5,12 @@
 	pageContext.setAttribute("level", level);
 %>
 <c:set var="ctp" value="${pageContext.request.contextPath}" />
+<style>
+	 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap');
+		body {
+			font-family: 'Noto Sans KR';
+		}
+</style>
 <script>
 	'use strict';
 
@@ -84,7 +90,7 @@
         <c:if test="${level < 4}"><a class="nav-link" href="memberLogout.mem">Logout</a></c:if>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="memberJoin.mem">Join</a>
+        <c:if test="${level > 4}"><a class="nav-link" href="memberJoin.mem">Join</a></c:if>
       </li>            
     </ul>
   </div>  

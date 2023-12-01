@@ -7,5 +7,5 @@
   <i class="fa fa-pinterest-p w3-hover-opacity"></i>
   <i class="fa fa-twitter w3-hover-opacity"></i>
   <i class="fa fa-linkedin w3-hover-opacity"></i>
-  <p class="w3-medium">Powered by <a href="http://192.168.50.52:9090/javaProjectJ6" target="_blank">Copyright 2023. 11. 3. Design by Happier!</a></p>
+  <p class="w3-medium">Powered by Copyright 2023. 11. 3. Design by Happier!</p>
 </footer>

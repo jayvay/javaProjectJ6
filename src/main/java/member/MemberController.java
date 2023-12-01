@@ -85,7 +85,16 @@ public class MemberController extends HttpServlet {
 			command.execute(request, response);
 			viewPage = "/include/message.jsp";
 		}
-		 
+		else if(com.equals("/memberPwdChange")) {
+			//command = new MemberPwdChangeOkCommand();
+			//command.execute(request, response);
+			return;
+		}
+		else if(com.equals("/memberDeleteCheck")) {
+			command = new MemberDeleteCheckCommand();
+			command.execute(request, response);
+			return;
+		}
 		request.getRequestDispatcher(viewPage).forward(request, response);
 	}
 }

@@ -20,15 +20,13 @@
   	// 유효성 검사.....
   	// 닉네임,성명,이메일,홈페이지,전화번호,비밀번호 등등....
   	
-    let regNickName = /^[가-힣]+$/;
+    let regNickName = /^[가-힣a-zA-Z]+$/;
     let regName = /^[가-힣a-zA-Z]+$/;
     let regEmail =/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
   	let regTel = /\d{3}-\d{3,4}-\d{4}$/g;
   	
-  	//let nickName = myform.nickName.value;
-  	let nickName = $("#nickName").val();
-  	//let name = myform.name.value;
-  	let name = $("#name").val();
+  	let nickName = myForm.nickName.value;
+  	let name = myForm.name.value;
   	let email1 = myForm.email1.value.trim();
   	let email2 = myForm.email2.value;
   	let email = email1 + "@" + email2;
@@ -42,17 +40,17 @@
   	
   	// 앞의 정규식으로 정의된 부분에 대한 유효성체크
   	if(!regNickName.test(nickName)) {
-      alert("닉네임은 한글만 사용가능합니다.");
+      alert("닉네임은 한글과 영문대소문자만 사용할 수 있습니다.");
       myForm.nickName.focus();
       return false;
     }
     else if(!regName.test(name)) {
-      alert("성명은 한글과 영문대소문자만 사용가능합니다.");
+      alert("성명은 한글과 영문대소문자만 사용할 수 있습니다.");
       myForm.name.focus();
       return false;
     }
     else if(!regEmail.test(email)) {
-      alert("이메일 형식에 맞지않습니다.");
+      alert("이메일 형식에 맞지 않습니다.");
       myForm.email1.focus();
       return false;
     }
@@ -69,7 +67,7 @@
   	let roadAddress = myForm.roadAddress.value + " ";
   	let detailAddress = myForm.detailAddress.value + " ";
   	let extraAddress = myForm.extraAddress.value + " ";
-		myform.address.value = postcode + "/" + roadAddress + "/" + detailAddress + "/" + extraAddress + "/";
+  	myForm.address.value = postcode + "/" + roadAddress + "/" + detailAddress + "/" + extraAddress + "/";
   	
   	if(submitFlag == 1) {
   		if(nickCheckSw == 0) {
@@ -91,14 +89,11 @@
   
   // 닉네임 중복체크
   function nickCheck() {
-  	//let nickName = myform.nickName.value;
-  	//let nickName = document.getElementById("nickName").value;
   	let nickName = $("#nickName").val();
 
   	if(nickName == '${sNickName}') {
   		alert("현재 닉네임을 그대로 사용합니다....");
   		nickCheckSw = 1;
-  		//myform.nickName.readOnly = true;
   		$("#nickName" ).prop('readonly', true);
   		return false;
   	}
@@ -107,7 +102,7 @@
   	
   	if(nickName == "") {
   		alert("닉네임을 입력하세요!");
-  		myform.nickName.focus();
+  		myForm.nickName.focus();
   	}
   	else {
   		nickCheckSw = 1;
@@ -132,8 +127,7 @@
 	    <div class="form-group">
     		<label for="nickName">닉네임 &nbsp; &nbsp;</label>
 	    	<div class="input-group">
-	    	  <input type="text" name="nickName" value="asdf" />
-		      <%-- <input type="text" value="${vo.nickName}" class="form-control" id="nickName" name="nickName" placeholder="닉네임을 입력하세요." required /> --%>
+		      <input type="text" value="${vo.nickName}" class="form-control" id="nickName" name="nickName" placeholder="닉네임을 입력하세요." required />
 		      <div class="input-group-append"><input type="button" id="nickNameBtn" value="닉네임 중복확인" class="btn btn-dark btn-sm" onclick="nickCheck()"/></div>
 	    	</div>
 	    </div>
@@ -205,9 +199,10 @@
 	        </div>
 	      </div>
 	    </div>
-	    <button type="button" class="btn btn-secondary" onclick="updateCheck()">정보수정</button> &nbsp;
-	    <button type="reset" class="btn btn-secondary">다시작성</button> &nbsp;
-	    <button type="button" class="btn btn-secondary" onclick="location.href='${ctp}/MemberLogin.mem';">돌아가기</button>
+	    <button type="button" class="btn btn-dark" onclick="updateCheck()">정보수정</button> &nbsp;
+	    <button type="reset" class="btn btn-dark">다시작성</button> &nbsp;
+	    <button type="button" class="btn btn-dark" onclick="location.href='memberMain.mem';">돌아가기</button>
+	    
 	    
 	    <input type="hidden" name="email" />
 	    <input type="hidden" name="tel" />

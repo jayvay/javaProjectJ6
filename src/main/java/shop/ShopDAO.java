@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import common.GetConn;
 
-public class AlbumDAO {
+public class ShopDAO {
 	private Connection conn = GetConn.getConn();
 	private PreparedStatement pstmt = null;
 	private ResultSet rs = null;
@@ -118,6 +118,68 @@ public class AlbumDAO {
 			res = pstmt.executeUpdate();
 		} catch (Exception e) {
 			System.out.println("SQL 오류 : " + e.getMessage());
+		} finally {
+			pstmtClose();
+		}
+		return res;
+	}
+
+	public ArrayList<ReviewVO> getAlbumReviewList(int idx) {
+		ArrayList<ReviewVO> reviewVos = new ArrayList<ReviewVO>();
+		try {	
+			sql = "select * from review where albumIdx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				ReviewVO reviewVo = new ReviewVO();
+				reviewVo.setIdx(rs.getInt("idx"));
+				reviewVo.setAlbumIdx(rs.getInt("albumIdx"));
+				reviewVo.setMid(rs.getString("mid"));
+				reviewVo.setNickName(rs.getString("nickName"));
+				reviewVo.setwDate(rs.getString("wDate"));
+				reviewVo.setContent(rs.getString("content"));
+				reviewVo.setStar(rs.getInt("star"));
+				reviewVos.add(reviewVo);
+			}
+		} catch (SQLException e) {
+			System.out.println("SQL구문 오류 : " + e.getMessage());
+		} finally {
+			rsClose();
+		}
+		return reviewVos;
+		}
+
+	public int setReplyDeleteOk(int idx) {
+		int res = 0;
+		try {
+			sql = "delete from review where idx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+			res = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("SQL구문 오류 : " + e.getMessage());
+		} finally {
+			pstmtClose();
+		}	
+		return res;
+	}
+
+
+	public int setReviewInputOk(ReviewVO reviewVo) {
+		int res = 0;
+		try {
+			sql = "insert into review values (default,?,?,?,default,?,?)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, reviewVo.getAlbumIdx());
+			pstmt.setString(2, reviewVo.getMid());
+			pstmt.setString(3, reviewVo.getNickName());
+			pstmt.setString(4, reviewVo.getContent());
+			pstmt.setInt(5, reviewVo.getStar());
+			res = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("SQL구문 오류 : " + e.getMessage());
 		} finally {
 			pstmtClose();
 		}

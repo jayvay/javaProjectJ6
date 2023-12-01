@@ -28,17 +28,16 @@
 	a {
 		text-decoration: none;
 	}
-	.calcTotBox {
-    position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    width: 318px;
-    height: 100%;
-    text-align: center;
-    background-color: #d4e3f1;
-	}
 </style>
+<script>
+	'use strict';
+	
+	 function reservCheck() {
+    	let mid = '${sMid}';
+    	let url = "shopReserv.shop?mid="+mid;
+  		window.open(url,"nWin","width=600px,height=750px");
+    }
+</script>
 </head>
 <body>
 <jsp:include page="/include/header.jsp" />
@@ -50,7 +49,7 @@
 			<table class="table table-bordered text-center tbl1">
 				<tr>
 					<th>주문아이디</th>
-					<td>mid</td>
+					<td>${sMid}</td>
 					<th>주문날짜</th>
 					<td>${strToday}</td>
 				</tr>
@@ -133,6 +132,25 @@
 					    </div>
 						</td>
 					</tr>
+					<tr>
+						<th>배송메세지</th>
+						<td>
+							<div class="form-group">
+		            <input type="text" name="content" id="content" placeholder="배송시 요청사항을 입력하세요" class="form-control" />
+			        </div>
+			      </td>
+					</tr>
+					<tr>
+						<th>배송예약일</th>
+						<td>
+							<div class="form-group">
+								<div class="input-group">
+			            <div class="input-group-prepend"><input type="button" value="예약구매" onclick="reservCheck()" class="btn btn-dark" /></div>
+			            <input type="text" name="rDate" id="rDate" class="form-control" />
+			        	</div>
+			        </div>
+			      </td>
+					</tr>
 					<tr><td colspan="2" class="p-0 m-0"></td></tr>
 				</table>
 				<p><br/></p>
@@ -142,43 +160,39 @@
 					<tr>
 						<th>총 상품금액</th>
 						<th>총 추가금액</th>
-						<th>총 할인금액</th>
+						<th>최종 결제금액</th>
 					</tr>
 					</thead>
 					<tbody>
 					<tr>
-						<td><em><fmt:formatNumber value="${totPrice}" pattern="#,###"/></em><i class="ri-add-circle-fill"></i></td>
-						<td><em>2,500</em>원<i class="ri-indeterminate-circle-fill"></i></td>
-						<td><em>0원</em><i class="ri-indeterminate-circle-fill"></i></td>
+						<td><em><fmt:formatNumber value="${totPrice}" pattern="#,###"/></em> <i class="ri-add-circle-fill"></i></td>
+						<td><em>2,500</em> 원 <i class="ri-add-circle-fill"></i></td>
+						<td><em>${totPrice + 2500}</em> 원</td>
 					</tr>
 					</tbody>
 					<tfoot>
 					<tr>
 						<td>
 							<dl>
-								<dt>상품 1종(1개)</dt>
-								<dd>13,000원</dd>
+								<dt>상품 ${num}종(${num}개)</dt>
+								<dd>${totPrice} 원</dd>
 							</dl>
 							<dl>
 								<dt>즉시할인</dt>
-								<dd>2,600원</dd>
+								<dd>${aVo.price - salePrice} 원</dd>
 							</dl>
 						</td>
 						<td>
 							<dl>
 								<dt>배송비</dt>
-								<dd>2,500원</dd>
+								<dd>2,500 원</dd>
 							</dl>
+						</td>
+						<td>
 						</td>
 					</tr>
 					</tfoot>
 				</table>
-				<div class="calcTotBox">
-					<div>
-						<p>최종 결제금액</p>
-						<p>10,400원</p>
-					</div>
-				</div>
 		</form>
 	</div>
 <p><br/></p>

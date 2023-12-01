@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
-import shop.AlbumDAO;
+import shop.ShopDAO;
 import shop.AlbumVO;
 
 public class AdminAlbumInputOkCommand implements AdminInterface {
@@ -48,7 +48,7 @@ public class AdminAlbumInputOkCommand implements AdminInterface {
 		}
 		disc = disc.substring(0, disc.lastIndexOf("/"));
 		
-		AlbumDAO dao = new AlbumDAO();
+		ShopDAO dao = new ShopDAO();
 		AlbumVO vo = dao.getAlbumSearch(alName, singer);
 		
 		if(vo.getAlName() != null) {

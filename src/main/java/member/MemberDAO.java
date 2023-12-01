@@ -221,7 +221,7 @@ public class MemberDAO {
 		return vo;
 	}
 
-	public int setMemberUpdateOk(MemberVO vo2) {
+	public int setMemberUpdateOk(MemberVO vo) {
 		int res = 0;
 		try {
 			sql = "update member set nickName=?, name=?, gender=?, birthday=?, tel=?, address=?, email=? where mid = ?";
@@ -236,6 +236,21 @@ public class MemberDAO {
 			pstmt.setString(8, vo.getMid());
 			res =	pstmt.executeUpdate();
 			
+		} catch (SQLException e) {
+			System.out.println("SQL 오류 : " + e.getMessage());
+		} finally {
+			pstmtClose();
+		}
+		return res;
+	}
+
+	public int setMemberDeleteCheck(String mid) {
+		int res = 0;
+		try {
+			sql = "update member set level = 99 where mid = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mid);
+			res = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("SQL 오류 : " + e.getMessage());
 		} finally {

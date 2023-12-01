@@ -9,6 +9,10 @@
 <title>adminAlbumInput</title>
 <jsp:include page="/include/bs4.jsp" />
 <style>
+	 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap');
+	 body {
+	 	font-family: 'Noto Sans KR';
+	 }
 	.disc {
 		overflow: auto;
 		width: 100%;
@@ -28,7 +32,7 @@
 	
 	function fCheck() {
 		let photo = document.getElementById("photo").value;
-		let ext = photo.substring(fName1.lastIndexOf(".")+1).toLowerCase(); // 확장자
+		let ext = photo.substring(photo.lastIndexOf(".")+1).toLowerCase(); // 확장자
 		let maxSize = 1024 * 1024 * 10; //10MB (1KByte=1024Byte=10^3Byte=2^10Byte / 1MByte=2^20Byte=10^6Byte / 1GByte=2^30Byte=10^9Byte / 1TByte=2^40Byte=10^12Byte)
 		
 		let part1 = document.getElementById("part1").value;

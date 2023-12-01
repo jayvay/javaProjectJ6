@@ -36,15 +36,27 @@ public class ShopController extends HttpServlet {
 			command.execute(request, response);
 			viewPage += "/shopAlbumDetail.jsp";
 		}
-		else if(com.equals("/shopAlbumDetail")) {
-			command = new ShopAlbumDetailCommand();
-			command.execute(request, response);
-			viewPage += "/shopAlbumDetail.jsp";
-		}
 		else if(com.equals("/shopPay")) {
 			command = new ShopPayCommand();
 			command.execute(request, response);
 			viewPage += "/shopPay.jsp";
+		}
+		else if(com.equals("/shopReserv")) {
+			command = new ShopReservCommand();
+			command.execute(request, response);
+			viewPage += "/shopReservation.jsp";
+		}
+		
+		
+		else if(com.equals("/albumReviewInput")) {
+			command = new AlbumReviewInputCommand();
+			command.execute(request, response);
+			return;
+		}
+		else if(com.equals("/albumReviewDelete")) {
+			command = new AlbumReviewDeleteCommand();
+			command.execute(request, response);
+			return;
 		}
 		
 		request.getRequestDispatcher(viewPage).forward(request, response);

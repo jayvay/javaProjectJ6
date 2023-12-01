@@ -17,31 +17,31 @@
 		let nickCheckSw = 0;
 		
 		function idCheck() {
-			let mid = myform.mid.value;
+			let mid = myForm.mid.value;
 			let url = "memberIdCheck.mem?mid="+mid;
 	    	
 	    	if(mid.trim() == "") {
 	    		alert("아이디를 입력해주세요.");
-	    		myform.mid.focus();
+	    		myForm.mid.focus();
 	    	}
 	    	else {
 	    		idCheckSw = 1;
-	    		myform.mid.readOnly = true;
+	    		myForm.mid.readOnly = true;
 	    		window.open(url,"nWin","width=580px,height=250px");
 	    	}
 		}
 		
 		function nickCheck() {
-    	let nickName = myform.nickName.value;
+    	let nickName = myForm.nickName.value;
     	let url = "${ctp}/memberNickCheck.mem?nickName="+nickName;
     	
     	if(nickName.trim() == "") {
     		alert("닉네임을 입력해주세요.");
-    		myform.nickName.focus();
+    		myForm.nickName.focus();
     	}
     	else {
     		nickCheckSw = 1;
-    		myform.nickName.readOnly = true;
+    		myForm.nickName.readOnly = true;
     		window.open(url,"nWin","width=580px,height=250px");
     	}
     }
@@ -50,7 +50,7 @@
 		
 			let regMid = /^[a-zA-Z0-9_]{4,10}$/;
     	let regPwd = /(?=.*[0-9a-zA-Z]).{4,20}$/;
-      let regNickName = /^[가-힣]+$/;
+      let regNickName = /^[가-힣a-zA-Z]+$/;
       let regName = /^[가-힣a-zA-Z]+$/;
       let regEmail =/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
     	let regTel = /\d{3}-\d{3,4}-\d{4}$/g;
@@ -61,51 +61,51 @@
 	    let name = document.getElementById("name").value;
 	    let nickName = document.getElementById("nickName").value;
 	    let birthday = document.getElementById("birthday").value;
-	    let tel1 = myform.tel1.value;
-    	let tel2 = myform.tel2.value.trim();
-    	let tel3 = myform.tel3.value.trim();
+	    let tel1 = myForm.tel1.value;
+    	let tel2 = myForm.tel2.value.trim();
+    	let tel3 = myForm.tel3.value.trim();
     	let tel = tel1 + "-" + tel2 + "-" + tel3;
-    	let email1 = myform.email1.value.trim();
-    	let email2 = myform.email2.value;
+    	let email1 = myForm.email1.value.trim();
+    	let email2 = myForm.email2.value;
     	let email = email1 + "@" + email2;
-	    let gender = document.myform.gender.value;
+	    let gender = document.myForm.gender.value;
 	    let agree = document.getElementById("agree");
 	    
 	    let submitFlag = 0;
 
 	    if(!regMid.test(mid))	{
 	    	alert("아이디는 4~10자리의 영문 대/소문자와 숫자, 특수문자 '_'만 입력해주세요.");
-	    	myform.mid.focus();
+	    	myForm.mid.focus();
 	    	return false;
 	    }
 	    else if(!regPwd.test(pwd)) {
 	    	alert("비밀번호는 1개 이상의 문자와 특수문자 조합의 6~24자리로 입력해주세요.");
-	    	myform.pwd.focus();
+	    	myForm.pwd.focus();
 	    	return false;
 	    }
 	    else if(pwd != pwdcheck) {
 	    	alert("입력하신 비밀번호가 같지 않습니다.");
-	    	myform.pwd.focus();
+	    	myForm.pwd.focus();
 	    	return false;
 	    }
 	    else if(!regName.test(name)) {
 	    	alert("성명은 한글과 영문 대/소문자로 입력해주세요.");
-	    	myform.name.focus();
+	    	myForm.name.focus();
 	    	return false;
 	    }
 	    else if(!regNickName.test(nickName)) {
         alert("닉네임은 한글만 사용가능합니다.");
-        myform.nickName.focus();
+        myForm.nickName.focus();
         return false;
       }
 	    else if(!regEmail.test(email)) {
 	    	alert("이메일 형식에 맞지 않습니다.");
-	    	myform.email1.focus();
+	    	myForm.email1.focus();
         return false;
 	    }
 	    else if(tel2 != "" && tel3 != "" && !regTel.test(tel)) {
     		alert("전화번호는 010-XXXX-XXXX 형식에 맞게 숫자로 입력해주세요.");
-    		myform.tel2.focus();
+    		myForm.tel2.focus();
     		return false;
 	    }
 	    else if(agree.checked == false) {
@@ -116,11 +116,11 @@
 	    	submitFlag = 1;
 	    }
 	    
-	    let postcode = myform.postcode.value;
-    	let roadAddress = myform.roadAddress.value;
-    	let detailAddress = myform.detailAddress.value;
-    	let extraAddress = myform.extraAddress.value;
-    	myform.address.value = postcode + "/" + roadAddress + "/" + detailAddress + "/" + extraAddress + "/";
+	    let postcode = myForm.postcode.value;
+    	let roadAddress = myForm.roadAddress.value;
+    	let detailAddress = myForm.detailAddress.value;
+    	let extraAddress = myForm.extraAddress.value;
+    	myForm.address.value = postcode + "/" + roadAddress + "/" + detailAddress + "/" + extraAddress + "/";
 	    
   		if(submitFlag == 1) {
     		if(idCheckSw == 0) {
@@ -132,10 +132,10 @@
     			document.getElementById("nickNameBtn").focus();
     		}
     		else {
-	    		myform.email.value = email;
-	    		myform.tel.value = tel;
+	    		myForm.email.value = email;
+	    		myForm.tel.value = tel;
 	    		
-		    	myform.submit();
+		    	myForm.submit();
     		}
     	}
     	else {
@@ -149,7 +149,7 @@
 <p><br/></p>
 	<div class="container" style="width:700px">
 		<h3 style="font-weight:bolder; text-align:center; padding:25px;">회 원 가 입</h3>
-      <form name="myform" method="post" action="memberJoinOk.mem" class="was-validated">
+      <form name="myForm" method="post" action="memberJoinOk.mem" class="was-validated">
         <div class="form-group">
             <label for="mid">아이디</label>
             <div class="input-group">

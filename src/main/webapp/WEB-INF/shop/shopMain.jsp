@@ -90,55 +90,10 @@
 		  <div class="right">
 		    <table class="table table-border text-center">
 		    	<tr>
-		    		<td>
-    					<div>
-		    				<a href="shopAlbumDetail.shop?alName=${vo.alName}">
-		    					<img src="https://image.yes24.com/goods/8181580/L" width="150px">
-		    					<br/>뭐뭐뭐
-		    				</a>
-		    			</div>
-		    			<div>10000원</div>
-		    		</td>
-		    		<td>
-		    			<div>
-		    				<a href="">
-		    					<img src="https://image.yes24.com/goods/123374202/L" width="150px">
-		    					<br/>뭐뭐뭐
-		    				</a>
-		    			</div>
-		    			<div>10000원</div>
-		    		</td>
-		    		<td>
-		    			<div>
-		    				<a href="">
-		    					<img src="https://image.yes24.com/goods/70861317/L" width="150px">
-		    					<br/>뭐뭐뭐
-		    				</a>
-		    			</div>
-		    			<div>10000원</div>
-		    		</td>
-		    		<td>
-		    			<div>
-		    				<a href="">
-		    					<img src="https://image.yes24.com/goods/66177953/L" width="150px">
-		    					<br/>뭐뭐뭐
-		    				</a>
-		    			</div>
-		    			<div>10000원</div>
-		    		</td>
-		    		<td>
-		    			<div>
-		    				<a href="">
-		    					<img src="https://image.yes24.com/goods/89405990/L" width="150px">
-		    					<br/>뭐뭐뭐
-		    				</a>
-		    			</div>
-		    			<div>10000원</div>
-		    		</td>
 		    		<c:forEach var="vo" items="${vos}" varStatus="st">
 			    		<td>
 			    			<div>
-			    				<a href="shopAlbumDetail.shop?alName=${vo.alName}&singer=${vo.singer}">
+			    				<a href="shopAlbumDetail.shop?idx=${vo.idx}&alName=${vo.alName}&singer=${vo.singer}">
 			    					<img src="${vo.photo}" width="150px">
 			    					<br/>${vo.alName}
 			    				</a>

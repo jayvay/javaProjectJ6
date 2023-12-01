@@ -13,8 +13,8 @@
  		
  		//사용 가능한 아이디를 부모창으로 전송 후 창닫기 수행
  		function sendCheck() {
-			opener.window.document.myform.mid.value = '${mid}';
-			opener.window.document.myform.pwd.focus();
+			opener.window.document.myForm.mid.value = '${mid}';
+			opener.window.document.myForm.pwd.focus();
 			window.close();
 		}
  		

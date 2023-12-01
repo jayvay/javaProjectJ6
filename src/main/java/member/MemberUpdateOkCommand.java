@@ -43,7 +43,7 @@ public class MemberUpdateOkCommand implements MemberInterface {
 		vo.setTel(tel);
 		vo.setAddress(address);
 		vo.setEmail(email);
-		
+		System.out.println(vo.getTel());
 		int res = dao.setMemberUpdateOk(vo);
 		
 		if(res == 1) {

@@ -9,6 +9,10 @@
 <title>adminMain.jsp</title>
 <jsp:include page="/include/bs4.jsp" />
 <style>
+ @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap');
+	body {
+		font-family: 'Noto Sans KR';
+	}
 	div.accodion {
 		margin: 80px;
 		float: left;
@@ -37,21 +41,22 @@
 		color : orange;
 	}
 	footer {
-		position: fixed;
-		bottom: 0;
+		position: absolute;
+		margin-top: 0px;
+		padding: 0px;
 		width: 100%;
 	}
 	#leftWindow {
 		float: left;
 		width: 25%;
-		height: 800px;
+		height: 1000px;
 		text-align: center;
 		background-color: #ddd;
 	}
 	#rightWindow {
 		float: left;
 		width: 75%;
-		height: 800px;
+		height: 1000px;
 		text-align: left;
 		background-color: #eee;
 		overflow: auto;
@@ -101,8 +106,7 @@
 		</div>
 	</div>
 <div style="clear:both"></div>
-<div id="footerTopMargin">&nbsp;</div>
-<p><br/></p>
+
 <jsp:include page="/include/footer.jsp" />
 </body>
 </html>

@@ -13,8 +13,8 @@
  		
  		//사용 가능한 닉네임을 부모창으로 전송 후 창닫기 수행
  		function sendCheck() {
-			opener.window.document.myform.nickName.value = '${nickName}';
-			opener.window.document.myform.name.focus();
+			opener.window.document.myForm.nickName.value = '${nickName}';
+			opener.window.document.myForm.name.focus();
 			window.close();
 		}
  		
@@ -38,7 +38,7 @@
 		<h3>닉네임 체크 폼</h3>
 		<c:if test="${res == 1}">
 			<h4>닉네임 <font color="blue"><b>${nickName}</b></font> 은(는) 사용 가능합니다.</h4>
-			<p><input type="button" value="창닫기" onclick="sendCheck()" />
+			<p><input type="button" value="창닫기" onclick="sendCheck()" class="btn btn-dark"/>
 		</c:if>
 		<c:if test="${res != 1}">
 			<h4>닉네임 <font color="blue"><b>${nickName}</b></font> 은(는) 이미 사용 중입니다.</h4>
