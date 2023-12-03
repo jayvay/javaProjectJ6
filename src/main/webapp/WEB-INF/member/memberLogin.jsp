@@ -94,7 +94,7 @@
     		type : "post",
     		data : query,
     		success : function(res) {
-					passwordShow.innerHTML = "결과 : " + res;
+					passwordShow.innerHTML = res;
     		},
     		error : function() {
 					alert("전송 오류");
@@ -114,6 +114,7 @@
 		midShow.innerHTML = "";
 		midSearch.value = null; 
 		emailSearch2.value = null; 
+		passwordShow.innerHTML = "";
 	}
 </script>
 </head>
@@ -219,11 +220,16 @@
 				  	  </tr>
 				  	  <tr>
 				  	    <td colspan="2">
-				  	    	<font size="2">임시비밀번호를 이메일로 전송해드립니다!</font><br/>
-				          <input type="button" value="이메일전송" onclick="passwordFind()" class="btn btn-dark mt-2" />
+				  	    	<font size="2">임시비밀번호를 발급해드립니다! 로그인 후 비밀번호를 변경해주세요.</font><br/>
+				          <input type="button" value="임시비밀번호발급" onclick="passwordFind()" class="btn btn-dark mt-2" />
 				  	    </td>
 				  	  </tr>
 	          </table>
+	          <table class="table table-borderless">
+			  	  <tr>
+			  	    <td><div id="passwordShow" name="passwordShow"></div></td>
+			  	  </tr>
+		  	  </table>
 	        </div>
 	        
 	        <!-- Modal footer -->

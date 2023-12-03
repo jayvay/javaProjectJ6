@@ -38,25 +38,25 @@
 		let part1 = document.getElementById("part1").value;
 		let part2 = document.getElementById("part2").value;
 		
-		if(photo.trim() == "") {
-			alert("업로드할 파일을 선택하세요.");
+		if(part1 == 0 || part2 == 0) {
+			alert("음반의 카테고리를 선택하세요.");	
 			return false;
 		}
-		else if(part1 == 0 || part2 == 0) {
-			alert("음반의 카테고리를 선택하세요.");
-		}
 		
-		let fileSize = document.getElementById("photo").files[0].size;	//파일이 있어야 사이즈 체크가 됨
-		
-		if(ext != 'jpg' && ext != 'gif' && ext != 'png') {
-  			alert("사진은 jpg/gif/png 파일만 업로드 가능합니다.")
+		if(photo.trim() != "") {
+			let fileSize = document.getElementById("photo").files[0].size;	//파일이 있어야 사이즈 체크가 됨
+			
+			if(ext != 'jpg' && ext != 'gif' && ext != 'png') {
+	  			alert("사진은 jpg/gif/png 파일만 업로드 가능합니다.")
+			}
+			else if(fileSize > maxSize) {
+				alert("업로드 가능한 사진의 최대 용량은 10MByte 입니다.");
+			}
+			else {
+				myForm.submit();
+			}
 		}
-		else if(fileSize > maxSize) {
-			alert("업로드 가능한 사진의 최대 용량은 10MByte 입니다.");
-		}
-		else {
-			myform.submit();
-		}
+		else myForm.submit();
 	}
 	
 	//업로드한 사진 미리보기
@@ -81,7 +81,7 @@
 		cnt++;
 		let discBox = '';
 		discBox += '<div id="dBox'+ cnt +'" class="dBox">';
-		discBox += '<input type="text" name="disc" id="disc'+ cnt +'" class="form-control mb-2 border" style="float:left; width:85%;" />';
+		discBox += '<input type="text" name="disc" id="disc'+ cnt +'" class="form-control mb-2 border" placeholder="수록곡을 입력하세요.(ex. 01 Track1)" style="float:left; width:85%;" />';
 		discBox += '<input type="button" value="삭제" onclick="deleteBox('+ cnt +')" class="btn btn-warning mb-2 ml-2"/>';
 		discBox += '</div>';
 		$("#discBox").append(discBox);
@@ -93,7 +93,7 @@
 		cnt++;
 		let discBox = '';
 		discBox += '<div id="dBox'+ cnt +'" class="dBox">';
-		discBox += '<textarea rows="7" name="disc" id="disc'+ cnt +'" placeholder="수록곡을 입력하세요." class="form-control mb-2 border"></textarea>';
+		discBox += '<textarea rows="7" name="disc" id="disc'+ cnt +'" placeholder="수록곡을 입력하세요.(ex. 01 Track1)" class="form-control mb-2 border"></textarea>';
 		discBox += '</div>';
 		$("#discBox").append(discBox);
 		$("#discDelAll").show();
@@ -132,7 +132,7 @@
 <body>
 <p><br/></p>
 	<div class="container">
-		<form name="myform" method="post" action="adminAlbumInputOk.ad" enctype="multipart/form-data">
+		<form name="myForm" method="post" action="adminAlbumInputOk.ad" enctype="multipart/form-data">
 			<table class="table table-bordered" >
 				<tr><td colspan="2"><h3 class="text-center" style="font-weight:bold">음반 등록</h3></td></tr>
 				<tr>
@@ -162,16 +162,14 @@
 								</select>&nbsp;
 								<select class="form-control col-3" id="part2" name="part">
 									<option value="0">장르</option>
-									<option value="kballad" class="part1">발라드</option>
-									<option value="kdance" class="part1">댄스</option>
-									<option value="ksoul" class="part1">R&B/소울</option>
-									<option value="krock" class="part1">ROCK</option>
-									<option value="kindi" class="part1">인디</option>
-									<option value="khiphop" class="part1">랩/힙합</option>
-									<option value="wpop" class="part2">POP</option>
-									<option value="wsoul" class="part2">R&B/소울</option>
-									<option value="wrock" class="part2">ROCK</option>
-									<option value="wjpop" class="part2">JPOP</option>
+									<option value="kBallad" class="part1">발라드</option>
+									<option value="kDance" class="part1">댄스</option>
+									<option value="kSoul" class="part1">R&B/소울</option>
+									<option value="kRock" class="part1">ROCK</option>
+									<option value="kIndi" class="part1">인디</option>
+									<option value="kHiphop" class="part1">랩/힙합</option>
+									<option value="wPop" class="part2">POP</option>
+									<option value="wJpop" class="part2">JPOP</option>
 									<option value="movie" class="part3">영화</option>
 									<option value="drama" class="part3">드라마</option>
 									<option value="musical" class="part3">뮤지컬</option>
@@ -189,7 +187,7 @@
 						</div>
 						<div class="form-group">
 						<label for="stock">재고수량</label>
-							<input type="number" name="stock" id="stock" class="form-control" />
+							<input type="number" name="stock" id="stock" value="10" class="form-control" />
 						</div>
 						<div class="row">
 							<div class="form-group col">

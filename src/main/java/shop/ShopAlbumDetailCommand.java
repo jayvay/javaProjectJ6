@@ -17,7 +17,7 @@ public class ShopAlbumDetailCommand implements ShopInterface {
 		
 		ShopDAO dao = new ShopDAO();
 		
-		AlbumVO vo = dao.getAlbumSearch(alName, singer);
+		AlbumVO vo = dao.getAlbumSearch("", "", idx);
 		
 		// 댓글 처리
 		ArrayList<ReviewVO> reviewVos = dao.getAlbumReviewList(idx);

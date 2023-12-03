@@ -35,6 +35,34 @@
 	}
 	
 	//장바구니
+	function cartSave() {
+
+		let albumIdx = ${vo.idx};
+		let num = myForm.num.value;
+		let salePrice = ${salePrice};
+		
+		let query = {
+				albumIdx : albumIdx,
+				num : num,
+				salePrice : salePrice
+		}
+		
+		$.ajax({
+			url : "shopCart.shop",
+			type : "post",
+			data : query,
+			success : function(res) {
+				if(res != "1") alert("장바구니 저장 완료");
+				else alert("장바구니 저장 실패, 다시 시도하세요");
+			},
+			error : function() {
+				alert("전송 오류");
+			}
+		});
+		
+		$("#demo").html(modalView('${vo.alName}','${vo.singer}') data-toggle="modal" data-target="#myModal");
+	}
+	
 	function shopCartCheck() {
 		myForm.action = "shopCartList.shop";
 		myForm.submit();
@@ -226,7 +254,10 @@
 							</tr>
 							<c:if test="${vo.stock > 0}">
 								<tr>
-									<td><a href="#" onclick="modalView('${vo.alName}','${vo.singer}')" data-toggle="modal" data-target="#myModal" class="btn btn-dark">장바구니</a></td>
+									<td>
+										<a href="#" onclick="cartSave()" class="btn btn-dark">장바구니</a>
+										<span id="demo"></span>
+									</td>
 								</tr>
 								<tr>
 									<td><input type="submit" value="구매하기" class="btn btn-dark"></td>
@@ -283,8 +314,10 @@
 	      </div>
 	    </div>
 		</div>
-	    <input type="hidden" name="albumIdx" value="${vo.idx}" />
-	    <input type="hidden" name="salePrice" value="${salePrice}" />
+    <input type="hidden" name="albumIdx" value="${vo.idx}" />
+    <input type="hidden" name="alName" value="${vo.alName}" />
+    <input type="hidden" name="singer" value="${vo.singer}" />
+    <input type="hidden" name="salePrice" value="${salePrice}" />
 	</form>
 	<hr/>
 		<!-- 댓글 -->

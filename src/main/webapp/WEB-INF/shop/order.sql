@@ -9,8 +9,10 @@ create table shopOrder (
 	address varchar(100) not null,	 -- 받는 사람 주소
 	content varchar(100) not null,	 -- 주문시 요청 내용
 	payment varchar(10) not null,	   -- 결제방법
-	oDate datetime default now(),		 /* 주문 날짜 */
-	rDate datetime default now(),		 /* 주문 예약 날짜 */
+	orderDate datetime default now(),		 /* 주문 날짜 */
+	reservDate datetime default now(),		 /* 주문 예약 날짜 */
+	albumCnt int default 1,
+	finalPrice int not null,
 	primary key(idx),
 	foreign key(albumIdx) references album(idx)
 	on update cascade	-- 부모필드를 수정하면 함께 영향을 받는다
@@ -18,3 +20,6 @@ create table shopOrder (
 );
 
 drop table shopOrder;
+
+
+

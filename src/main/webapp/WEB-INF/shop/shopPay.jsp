@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <c:set var="ctp" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
@@ -22,11 +23,22 @@
 	.tbl1 th, .tbl1 td {
 		width: 25%
 	}
-	.tbl3 th {
+	.tbl3 th, .tbl4 td {
+		background-color: #eee;
+	}
+	.tbl4 th {
+		color: white;
+		background-color: black;
+	}
+	.tbl5 tr {
 		background-color: #eee;
 	}
 	a {
 		text-decoration: none;
+	}
+	#totPr {
+		font-size: 15pt;
+		font-weight: bold;
 	}
 </style>
 <script>
@@ -37,13 +49,29 @@
     	let url = "shopReserv.shop?mid="+mid;
   		window.open(url,"nWin","width=600px,height=750px");
     }
+	 
+	 function orderCheck() {
+		let tel1 = myForm.tel1.value;
+		let tel2 = myForm.tel2.value;
+		let tel3 = myForm.tel3.value;
+		let tel = tel1 + "-" + tel2 + "-" + tel3;
+		myForm.tel.value = tel;
+		
+		let postcode = myForm.postcode.value;
+    	let roadAddress = myForm.roadAddress.value;
+    	let detailAddress = myForm.detailAddress.value;
+    	let extraAddress = myForm.extraAddress.value;
+    	myForm.address.value = postcode + "/" + roadAddress + "/" + detailAddress + "/" + extraAddress + "/";
+    	
+    	myForm.submit();
+	}
 </script>
 </head>
 <body>
 <jsp:include page="/include/header.jsp" />
 <p><br/></p>
 	<div class="container">
-		<form name="myform" method="post" action="shopPayOk.shop" class="was-validated">
+		<form name="myForm" method="post" action="shopPayOk.shop" class="was-validated">
 			<h2>주 문 결 제</h2>
 			<p><br/></p>
 			<table class="table table-bordered text-center tbl1">
@@ -63,20 +91,18 @@
 						<th>판매가</th>
 						<th>수량</th>
 						<th>합계</th>
-						<th>배송일</th>
 					</tr>
 					</thead>
 					<tbody>
 					<tr>
 						<td class="text-left">
 							<img src="${aVo.photo}" style="width:150px; height:150px; margin:0 20px;"/>
-							<a href="shopAlbumDetail.shop">${aVo.alName}</a>
+							<a href="shopAlbumDetail.shop?idx=${aVo.idx}">${aVo.alName}</a>
 						</td>
 						<td><fmt:formatNumber value="${aVo.price}" pattern="#,###"/></td>
 						<td><fmt:formatNumber value="${salePrice}" pattern="#,###"/></td>
 						<td>${num}</td>
 						<td><fmt:formatNumber value="${totPrice}" pattern="#,###"/></td>
-						<td></td>
 					</tr>
 					</tbody>
 					<tr><td colspan="6" class="p-0 m-0"></td></tr>
@@ -88,8 +114,8 @@
 					<tr>
 						<th>배송방법</th>
 						<td>
-							<input type="radio" name="addressRadio" checked> 새로입력 &nbsp;&nbsp;&nbsp;
-							<input type="radio" name="addressRadio"> 회원정보와 동일
+							<input type="radio" name="addressRadio" value="0" checked> 새로입력 &nbsp;&nbsp;&nbsp;
+							<input type="radio" name="addressRadio" value="1"> 회원정보와 동일
 						</td>
 					</tr>
 					<tr>
@@ -146,7 +172,7 @@
 							<div class="form-group">
 								<div class="input-group">
 			            <div class="input-group-prepend"><input type="button" value="예약구매" onclick="reservCheck()" class="btn btn-dark" /></div>
-			            <input type="text" name="rDate" id="rDate" class="form-control" />
+			            <input type="text" name="rDate" id="rDate" value="${fn:substring(strToday, 0,10)}" class="form-control" />
 			        	</div>
 			        </div>
 			      </td>
@@ -155,7 +181,7 @@
 				</table>
 				<p><br/></p>
 				<h4>결제정보</h4>
-				<table class="table table-bordered">
+				<table class="table table-bordered tbl4">
 					<thead>
 					<tr>
 						<th>총 상품금액</th>
@@ -166,8 +192,14 @@
 					<tbody>
 					<tr>
 						<td><em><fmt:formatNumber value="${totPrice}" pattern="#,###"/></em> <i class="ri-add-circle-fill"></i></td>
-						<td><em>2,500</em> 원 <i class="ri-add-circle-fill"></i></td>
-						<td><em>${totPrice + 2500}</em> 원</td>
+						<td>
+							<c:if test="${totPrice < 15000}"><em>2,500</em> 원 <i class="ri-add-circle-fill"></i></c:if>
+							<c:if test="${totPrice >= 15000}"><em>0</em> 원 <i class="ri-add-circle-fill"></i></c:if>
+						</td>
+						<td id="totPr">
+							<c:if test="${totPrice < 15000}"><em>${totPrice + 2500}</em> 원</c:if>
+							<c:if test="${totPrice >= 15000}"><em>${totPrice}</em> 원</c:if>
+						</td>
 					</tr>
 					</tbody>
 					<tfoot>
@@ -184,8 +216,8 @@
 						</td>
 						<td>
 							<dl>
-								<dt>배송비</dt>
-								<dd>2,500 원</dd>
+							<c:if test="${totPrice < 15000}"><dt>배송비</dt><dd>2,500 원</dd></c:if>
+							<c:if test="${totPrice >= 15000}"><dt>배송비</dt><dd>0 원</dd></c:if>
 							</dl>
 						</td>
 						<td>
@@ -193,6 +225,33 @@
 					</tr>
 					</tfoot>
 				</table>
+				<p><br/></p>
+				<h4>결제방법</h4>
+				<table class="table table-borderless text-center tbl5">
+					<tr class="row">
+						<td class="col">신용카드</td>
+						<td class="col col-5">
+						  <select name="payment" class="custom-select">
+				              <option value="0" selected>카드사 선택</option>
+				              <option value="kakao">카카오뱅크</option>
+				              <option value="sinhan">신한카드</option>
+				              <option value="kb">국민카드</option>
+				              <option value="nh">농협카드</option>
+				              <option value="woori">우리카드</option>
+				              <option value="sam">삼성카드</option>
+				              <option value="hyun">현대카드</option>
+				              <option value="lotte">롯데카드</option>
+			              </select>
+						</td>
+						<td class="col col-5"><input type="button" onclick="orderCheck()" value="결제하기" class="btn btn-dark form-control"/></td>
+					</tr>
+				</table>
+				<input type="hidden" name="orderDate" value="${strToday}"/>
+				<input type="hidden" name="finalPrice" value="${totPrice + 2500}"/>
+				<input type="hidden" name="albumIdx" value="${aVo.idx}"/>
+				<input type="hidden" name="albumCnt" value="${num}"/>
+				<input type="hidden" name="tel" />
+				<input type="hidden" name="address" />
 		</form>
 	</div>
 <p><br/></p>

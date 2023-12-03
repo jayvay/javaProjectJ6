@@ -36,6 +36,16 @@ public class ShopController extends HttpServlet {
 			command.execute(request, response);
 			viewPage += "/shopAlbumDetail.jsp";
 		}
+		else if(com.equals("/shopCart")) {
+			command = new ShopCartCommand();
+			command.execute(request, response);
+			return;
+		}
+		else if(com.equals("/shopCartList")) {
+			command = new ShopCartListCommand();
+			command.execute(request, response);
+			viewPage += "/shopCart.jsp";
+		}
 		else if(com.equals("/shopPay")) {
 			command = new ShopPayCommand();
 			command.execute(request, response);
@@ -46,8 +56,14 @@ public class ShopController extends HttpServlet {
 			command.execute(request, response);
 			viewPage += "/shopReservation.jsp";
 		}
-		
-		
+		else if(com.equals("/shopPayOk")) {
+			command = new ShopPayOkCommand();
+			command.execute(request, response);
+			viewPage = "/include/message.jsp";
+		}
+		else if(com.equals("/shopOrderComplete")) {
+			viewPage += "/shopOrderComplete.jsp";
+		}
 		else if(com.equals("/albumReviewInput")) {
 			command = new AlbumReviewInputCommand();
 			command.execute(request, response);

@@ -48,34 +48,20 @@
       <li class="nav-item">
         <a class="nav-link" href="shopMain.shop">SHOP</a>
       </li>
-     	<%-- <c:if test="${level <= 4}"> --%>
 	      <li class="nav-item">
-	        <a class="nav-link" href="boardList.bo">Board</a>
+	        <a class="nav-link" href="javascript:alert('해당 페이지는 준비중입니다.');">BOARD</a>
 	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link" href="adminMain.ad">ADMIN</a>
-	      </li>    
-	      <li class="nav-item ml-2 mr-2">
-	         <div class="dropdown">
-					    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">Study1</button>
-					    <div class="dropdown-menu">
-					      <a class="dropdown-item" href="${ctp}/study/password/passForm.jsp">암호화연습</a>
-					      <a class="dropdown-item" href="${ctp}/mapping/Test1">디렉토리 패턴</a>
-					      <a class="dropdown-item" href="${ctp}/mapping/test5.do">확장자 패턴</a>
-					      <a class="dropdown-item" href="${ctp}/mapping/test5.re">확장자 패턴2</a>
-					      <a class="dropdown-item" href="${ctp}/mapping/login.lo">로그인 연습</a>
-					      <a class="dropdown-item" href="ajaxTest1.st">AJax 연습1</a>
-					      <a class="dropdown-item" href="userList.us">AJax 연습2</a>
-					      <a class="dropdown-item" href="login.alo">AJax연습3</a>
-					      <a class="dropdown-item" href="uuidProcess.st">UUID연습</a>
-					    </div>
-					  </div>
-	      </li>
+	      <c:if test="${level == 0}">
+		      <li class="nav-item">
+		        <a class="nav-link" href="adminMain.ad">ADMIN</a>
+		      </li>    
+	      </c:if>
 	      <c:if test="${level < 4}">
 		      <li class="nav-item ml-2 mr-2">
 		         <div class="dropdown">
 						    <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" style="color:gray; background-color:black;">MyPage</button>
 						    <div class="dropdown-menu">
+						      <a class="dropdown-item" href="shopCart.shop">장바구니</a>
 						      <a class="dropdown-item" href="memberMain.mem">마이페이지</a>
 						      <a class="dropdown-item" href="#" data-toggle="modal" data-target="#myModalPwdCheck" >회원정보수정</a>
 						      <a class="dropdown-item" href="javascript:memberDelCheck()">회원탈퇴</a>

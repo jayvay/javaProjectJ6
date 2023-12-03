@@ -19,8 +19,7 @@ public class ShopPayCommand implements ShopInterface {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		String mid = session.getAttribute("sMid")==null ? "" : (String)session.getAttribute("sMid");
-		String alName = request.getParameter("alName")==null ? "" : request.getParameter("alName");
-		String singer = request.getParameter("singer")==null ? "" : request.getParameter("singer");
+		int albumIdx = request.getParameter("albumIdx")==null ? 0 : Integer.parseInt(request.getParameter("albumIdx"));
 		int num = request.getParameter("num")==null ? 1 : Integer.parseInt(request.getParameter("num"));
 		double salePriceD = request.getParameter("salePrice")==null ? 0 : Double.parseDouble(request.getParameter("salePrice"));
  
@@ -28,10 +27,10 @@ public class ShopPayCommand implements ShopInterface {
 		int totPrice = num * salePrice;
 		
 		MemberDAO mDao = new MemberDAO();
-		MemberVO mVo = mDao.getMemberSearch(mid);
+		MemberVO mVo = mDao.getMemberMidCheck(mid);
 
 		ShopDAO aDao = new ShopDAO();
-		AlbumVO aVo = aDao.getAlbumSearch(alName, singer);
+		AlbumVO aVo = aDao.getAlbumSearch("", "", albumIdx);
 		
 		
 	  Date today = new Date(); 

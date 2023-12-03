@@ -33,3 +33,4 @@ insert into album values (default, '아이유 - 리메이크 앨범 꽃갈피', 
 , default, default, 'https://image.yes24.com/momo/TopCate362/MidCate001/36105438.jpg');
 
 update album set photo = 'https://image.yes24.com/momo/TopCate362/MidCate001/36105438.jpg' where idx = 1;
+update album set stock = (stock-1) where idx = 10;

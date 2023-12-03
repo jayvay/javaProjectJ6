@@ -29,7 +29,7 @@ public class AdminController extends HttpServlet {
 		}
 		if(com.equals("/adminContent")) {
 			viewPage += "/adminContent.jsp";
-		}
+		} 
 		else if(com.equals("/adminAlbumInput")) {	
 			viewPage += "/adminAlbumInput.jsp";
 		}
@@ -37,6 +37,24 @@ public class AdminController extends HttpServlet {
 			command = new AdminAlbumInputOkCommand();
 			command.execute(request, response);
 			viewPage = "/include/message.jsp";
+		}
+		else if(com.equals("/adminAlbumDeleteOk")) {
+			command = new AdminAlbumDeleteOkCommand();
+			command.execute(request, response);
+			return;
+		}
+		else if(com.equals("/adminMemberList")) {	
+			viewPage += "/adminMemberList.jsp";
+		}
+		else if(com.equals("/adminMemberLevelChange")) {
+			command = new AdminMemberLevelChangeCommand();
+			command.execute(request, response);
+			return;
+		}
+		else if(com.equals("/adminMemberDeleteOk")) {
+			command = new AdminMemberDeleteOkCommand();
+			command.execute(request, response);
+			return;
 		}
 		
 		request.getRequestDispatcher(viewPage).forward(request, response);

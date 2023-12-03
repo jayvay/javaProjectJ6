@@ -27,8 +27,10 @@ public class AdminAlbumInputOkCommand implements AdminInterface {
 		String alName = multipartRequest.getParameter("alName")==null ? "" : multipartRequest.getParameter("alName");
 		String singer = multipartRequest.getParameter("singer")==null ? "" : multipartRequest.getParameter("singer");
 		int price = multipartRequest.getParameter("price")==null ? 0 : Integer.parseInt(multipartRequest.getParameter("price"));
+		int discount = multipartRequest.getParameter("discount")==null ? 0 : Integer.parseInt(multipartRequest.getParameter("discount"));
 		String relDate = multipartRequest.getParameter("relDate")==null ? "" : multipartRequest.getParameter("relDate");
 		String content = multipartRequest.getParameter("content")==null ? "" : multipartRequest.getParameter("content");
+		int stock = multipartRequest.getParameter("stock")==null ? 0 : Integer.parseInt(multipartRequest.getParameter("stock"));
 
 		String[] parts = multipartRequest.getParameterValues("part");
 		String part = "";
@@ -47,9 +49,11 @@ public class AdminAlbumInputOkCommand implements AdminInterface {
 			}
 		}
 		disc = disc.substring(0, disc.lastIndexOf("/"));
+		disc = disc.replace("\n", "/");
+//		System.out.println("disc:"+disc);
 		
 		ShopDAO dao = new ShopDAO();
-		AlbumVO vo = dao.getAlbumSearch(alName, singer);
+		AlbumVO vo = dao.getAlbumSearch(alName, singer, 0);
 		
 		if(vo.getAlName() != null) {
 			request.setAttribute("msg", "이미 등록된 앨범입니다.");
@@ -61,20 +65,22 @@ public class AdminAlbumInputOkCommand implements AdminInterface {
 			vo.setAlName(alName);
 			vo.setSinger(singer);
 			vo.setPrice(price);
+			vo.setDiscount(discount);
 			vo.setPart(part);
 			vo.setRelDate(relDate);
-			vo.setContent(content);
 			vo.setDisc(disc);
+			vo.setContent(content);
+			vo.setStock(stock);
 			vo.setPhoto(photo);
 			
 			int res = dao.setAlbumInput(vo);
 			if(res != 0) {
 				request.setAttribute("msg", "새로운 앨범이 등록되었습니다.");
-				request.setAttribute("url", "adminAlbumList.ad");
+				request.setAttribute("url", "adminMain.ad");
 			}
 			else {
 				request.setAttribute("msg", "앨범 등록이 실패했습니다. 다시 시도하세요.");
-				request.setAttribute("url", "adminAlbumInput.ad");
+				request.setAttribute("url", "adminMain.ad");
 			}
 		}
 	}

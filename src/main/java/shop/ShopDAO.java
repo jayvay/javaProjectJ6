@@ -39,11 +39,22 @@ public class ShopDAO {
 	}
 
 	//모든 앨범 리스트
-	public ArrayList<AlbumVO> getAlbumList() {
+	public ArrayList<AlbumVO> getAlbumList(int startIndexNo, int pageSize, String part) {
 		ArrayList<AlbumVO> vos = new ArrayList<>();
 		try {
-			sql = "select * from album order by idx desc";
-			pstmt = conn.prepareStatement(sql);
+			if(part.equals("all")) {
+				sql = "select * from album order by idx desc limit ?,?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, startIndexNo);
+				pstmt.setInt(2, pageSize);
+			}
+			else {
+				sql = "select * from album where part = ? order by idx desc limit ?,?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, part);
+				pstmt.setInt(2, startIndexNo);
+				pstmt.setInt(3, pageSize);
+			}
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -71,13 +82,20 @@ public class ShopDAO {
 	}
 
 	//기존에 등록된 앨범인지 확인
-	public AlbumVO getAlbumSearch(String alName, String singer) {
+	public AlbumVO getAlbumSearch(String alName, String singer, int idx) {
 		AlbumVO vo = new AlbumVO();
 		try {
-			sql = "select * from album where singer = ? and alName like ?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, singer);
-			pstmt.setString(2, "%"+alName+"%");
+			if(idx == 0) {
+				sql = "select * from album where singer = ? and alName like ?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, singer);
+				pstmt.setString(2, "%"+alName+"%");
+			}
+			else {
+				sql = "select * from album where idx = ?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, idx);
+			}
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
@@ -102,19 +120,22 @@ public class ShopDAO {
 		return vo;
 	}
 
+	//새 앨범 등록
 	public int setAlbumInput(AlbumVO vo) {
 		int res = 0;
 		try {
-			sql = "insert into album values (default, ?,?,?,?,?,?,? , default, ?)";
+			sql = "insert into album values (default, ?,?,?,?,?,?,?,?,? ,default, ?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, vo.getAlName());
 			pstmt.setString(2, vo.getSinger());
 			pstmt.setInt(3, vo.getPrice());
-			pstmt.setString(4, vo.getPart());
-			pstmt.setString(5, vo.getRelDate());
-			pstmt.setString(6, vo.getDisc());
-			pstmt.setString(7, vo.getContent());
-			pstmt.setString(8, vo.getPhoto());
+			pstmt.setInt(4, vo.getDiscount());
+			pstmt.setString(5, vo.getPart());
+			pstmt.setString(6, vo.getRelDate());
+			pstmt.setString(7, vo.getDisc());
+			pstmt.setString(8, vo.getContent());
+			pstmt.setInt(9, vo.getStock());
+			pstmt.setString(10, vo.getPhoto());
 			res = pstmt.executeUpdate();
 		} catch (Exception e) {
 			System.out.println("SQL 오류 : " + e.getMessage());
@@ -124,6 +145,7 @@ public class ShopDAO {
 		return res;
 	}
 
+	//앨범 평점/리뷰 리스트
 	public ArrayList<ReviewVO> getAlbumReviewList(int idx) {
 		ArrayList<ReviewVO> reviewVos = new ArrayList<ReviewVO>();
 		try {	
@@ -151,7 +173,8 @@ public class ShopDAO {
 		return reviewVos;
 		}
 
-	public int setReplyDeleteOk(int idx) {
+	//앨범 리뷰 삭제
+	public int setReviewDeleteOk(int idx) {
 		int res = 0;
 		try {
 			sql = "delete from review where idx = ?";
@@ -167,6 +190,7 @@ public class ShopDAO {
 	}
 
 
+	//앨범 리뷰 등록
 	public int setReviewInputOk(ReviewVO reviewVo) {
 		int res = 0;
 		try {
@@ -184,6 +208,191 @@ public class ShopDAO {
 			pstmtClose();
 		}
 		return res;
+	}
+
+	//앨범 삭제 관리자 확인
+	public String getAlbumDeleteCheck(int idx) {
+		String res = "";
+		try {
+			sql = "select * from album where idx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				res = rs.getString("photo");
+			}
+		} catch (Exception e) {
+			System.out.println("SQL 오류 : " + e.getMessage());
+		} finally {
+			rsClose();
+		}
+		return res;
+	}
+
+	//앨범 삭제
+	public String setAlbumDeleteOk(int idx) {
+		int res = 0;
+		try {
+			sql = "delete from album where idx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+			res = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("SQL구문 오류 : " + e.getMessage());
+		} finally {
+			pstmtClose();
+		}	
+		return res + "";
+	}
+
+	//장바구니 저장
+	public int setCartInput(CartVO vo) {
+		int res = 0;
+		try {
+			sql = "insert into cart values (default,?,?,?,?)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, vo.getMid());
+			pstmt.setInt(2, vo.getAlbumIdx());
+			pstmt.setInt(3, vo.getAlbumCnt());
+			pstmt.setInt(4, vo.getPrice());
+			res = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("SQL구문 오류 : " + e.getMessage());
+		} finally {
+			pstmtClose();
+		}
+		return res;
+	}
+
+	//장바구니 리스트
+	public ArrayList<CartVO> getCartAlbumList() {
+		ArrayList<CartVO> vos = new ArrayList<CartVO>();
+		try {
+			sql = "select * from cart c left outer join album a on c.albumIdx = a.idx;";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				CartVO vo = new CartVO();
+				vo.setIdx(rs.getInt("idx"));
+				vo.setMid(rs.getString("mid"));
+				vo.setAlbumIdx(rs.getInt("albumIdx"));
+				vo.setAlbumCnt(rs.getInt("albumCnt"));
+				vo.setSalePrice(rs.getInt("salePrice"));
+				vo.setAlName(rs.getString("alName"));
+				vo.setSinger(rs.getString("singer"));
+				vo.setPrice(rs.getInt("price"));
+				vo.setDiscount(rs.getInt("discount"));
+				vo.setStock(rs.getInt("stock"));
+				vo.setSaleCnt(rs.getInt("saleCnt"));
+				vo.setPhoto(rs.getString("photo"));
+			}
+		} catch (Exception e) {
+			System.out.println("SQL 오류 : " + e.getMessage());
+		} finally {
+			rsClose();
+		}
+		return vos;
+	}
+
+	//전체 자료의 레코드건수 구해오기
+	public int getTotRecCnt(String part) {
+		int totRecCnt = 0;
+		try {
+			if(part.equals("all")) {
+				sql = "select count(*) as cnt from album";
+				pstmt = conn.prepareStatement(sql);
+			}
+			else {
+				sql = "select count(*) as cnt from album where part = ?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, part);
+			}
+			rs = pstmt.executeQuery();
+			rs.next();
+			totRecCnt = rs.getInt("cnt");
+		} catch (SQLException e) {
+			System.out.println("SQL구문 오류 : " + e.getMessage());
+		} finally {
+			rsClose();
+		}
+		return totRecCnt;
+	}
+
+	//주문 등록
+	public int setOrderInput(OrderVO vo) {
+		int res = 0;
+		try {
+			sql = "insert into shopOrder values (default,?,?,?,?,?,?,?,?,?,?,?)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, vo.getAlbumIdx());
+			pstmt.setString(2, vo.getMid());
+			pstmt.setString(3, vo.getName());
+			pstmt.setString(4, vo.getTel());
+			pstmt.setString(5, vo.getAddress());
+			pstmt.setString(6, vo.getContent());
+			pstmt.setString(7, vo.getPayment());
+			pstmt.setString(8, vo.getOrderDate());
+			pstmt.setString(9, vo.getReservDate());
+			pstmt.setInt(10, vo.getAlbumCnt());
+			pstmt.setInt(11, vo.getFinalPrice());
+			res = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("SQL구문 오류 : " + e.getMessage());
+		} finally {
+			pstmtClose();
+		}
+		return res;
+	}
+
+	//주문 후 재고 -1 업데이트
+	public int setAlbumStockUpdate(int albumIdx) {
+		int res = 0;
+		try {
+			sql = "update album set stock = (stock-1) where idx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, albumIdx);
+			res = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("SQL구문 오류 : " + e.getMessage());
+		} finally {
+			pstmtClose();
+		}
+		return res;
+	}
+
+	//주문 내역 불러오기
+	public ArrayList<OrderVO> getMyOrderList(String mid) {
+		ArrayList<OrderVO> vos = new ArrayList<>();
+		try {
+			sql = "select * from shopOrder where mid = ?;";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mid);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				OrderVO vo = new OrderVO();
+				vo.setIdx(rs.getInt("idx"));
+				vo.setAlbumIdx(rs.getInt("albumIdx"));
+				vo.setMid(rs.getString("mid"));
+				vo.setName(rs.getString("name"));
+				vo.setTel(rs.getString("tel"));
+				vo.setAddress(rs.getString("address"));
+				vo.setContent(rs.getString("content"));
+				vo.setPayment(rs.getString("payment"));
+				vo.setOrderDate(rs.getString("orderDate"));
+				vo.setReservDate(rs.getString("reservDate"));
+				vo.setAlbumCnt(rs.getInt("albumCnt"));
+				vo.setFinalPrice(rs.getInt("finalPrice"));
+				vos.add(vo);
+			}
+		} catch (Exception e) {
+			System.out.println("SQL 오류 : " + e.getMessage());
+		} finally {
+			rsClose();
+		}
+		return vos;
 	}
 	
 }

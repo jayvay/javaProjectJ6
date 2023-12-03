@@ -86,14 +86,11 @@
 					<h3 id="title">관리자 메뉴</h3><br/>
 					<div class="menu">상품관리</div>
 					<div class="content">
-							<a href="adminMain.ad?aSw=0" class="mb-3">앨범 리스트</a><br/>
 							<a href="adminMain.ad?aSw=1">앨범 등록</a><br/>
 					</div>
 					<div class="menu">회원관리</div>
 					<div class="content">
 							<a href="adminMain.ad?aSw=2">회원리스트</a><br/>
-							<a href="adminMain.ad?aSw=3">신고관리</a><br/>
-							<a href="adminMain.ad?aSw=4">뭔관리</a><br/>
 					</div>
 				</div>
 		</div>
@@ -101,6 +98,11 @@
 			<div>
 				<c:if test="${aSw == 1}">
 					<jsp:include page="adminAlbumInput.jsp" />
+				</c:if>
+			</div>
+			<div>
+				<c:if test="${aSw == 2}">
+					<jsp:include page="adminMemberList.jsp" />
 				</c:if>
 			</div>
 		</div>

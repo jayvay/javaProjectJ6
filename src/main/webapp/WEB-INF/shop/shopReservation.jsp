@@ -52,7 +52,7 @@
  		 let sw = 0;
  		
  		$(function() {
-	 		let year = '${year}';
+ 		let year = '${year}';
 	    let month = '${month+1}';
 	    let day = '${day}';
 	    let strToday = year + '-' + month + '-' + day; 
@@ -181,7 +181,7 @@
 		 	<div class="text-center col"><input type="button" value="배송예약" onclick="sendRDate()" class="btn btn-info" /></div><br/>
 			<div class="col"></div>
 		</div><br/>
-		※ 선택하신 날짜 전후 2~3일 이내로 배송이 완료됩니다.
+		※ 선택하신 날짜 전후 2~3일 이내(주말,공휴일 제외)로 배송이 완료됩니다.
 	</form>
 	</div>
 <p><br/></p>

@@ -111,6 +111,7 @@
   		window.open(url,"nWin","width=580px,height=250px");
   	}
   }
+  
 </script>
 </head>
 <body>
@@ -199,10 +200,10 @@
 	        </div>
 	      </div>
 	    </div>
-	    <button type="button" class="btn btn-dark" onclick="updateCheck()">정보수정</button> &nbsp;
-	    <button type="reset" class="btn btn-dark">다시작성</button> &nbsp;
-	    <button type="button" class="btn btn-dark" onclick="location.href='memberMain.mem';">돌아가기</button>
-	    
+	    <button type="button" class="btn btn-dark mr-2" onclick="updateCheck()">정보수정</button>
+	    <button type="button" class="btn btn-dark mr-2" onclick="location.href='memberPwdChange.mem';">비밀번호변경</button>
+	    <button type="reset" class="btn btn-dark mr-2">다시작성</button>
+	    <button type="button" class="btn btn-dark mr-2" onclick="location.href='memberMain.mem';">돌아가기</button>
 	    
 	    <input type="hidden" name="email" />
 	    <input type="hidden" name="tel" />
