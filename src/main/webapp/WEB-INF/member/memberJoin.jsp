@@ -153,14 +153,14 @@
         <div class="form-group">
             <label for="mid">아이디</label>
             <div class="input-group">
-                <input type="text" class="form-control" name= mid id="mid" placeholder="아이디를 입력하세요" autofocus required/>
+                <input type="text" class="form-control" name= mid id="mid" placeholder="아이디 (4~10자리의 영문 대/소문자, 숫자, 특수문자 '_')" autofocus required/>
                 <div class="input-group-append"><input type="button" id="midBtn" value="중복확인" onclick="idCheck()" class="btn btn-dark"></div>
             </div>
 	          <div class="invalid-feedback">필수 정보입니다.</div>
         </div>
         <div class="form-group">
             <label for="pwd">비밀번호</label>
-            <input type="password" name="pwd" id="pwd" placeholder="비밀번호를 입력하세요" class="form-control" required />
+            <input type="password" name="pwd" id="pwd" placeholder="비밀번호 (1개 이상의 문자와 특수문자 조합의 6~24자리)" class="form-control" required />
             <div class="invalid-feedback">필수 정보입니다.</div>
         </div>
         <div class="form-group">
