@@ -44,7 +44,7 @@ public class ShopController extends HttpServlet {
 		else if(com.equals("/shopCartList")) {
 			command = new ShopCartListCommand();
 			command.execute(request, response);
-			viewPage += "/shopCart.jsp";
+			viewPage += "/shopCartList.jsp";
 		}
 		else if(com.equals("/shopPay")) {
 			command = new ShopPayCommand();

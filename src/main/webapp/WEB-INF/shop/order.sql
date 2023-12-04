@@ -21,5 +21,8 @@ create table shopOrder (
 
 drop table shopOrder;
 
+select * from shopOrder o left outer join album a on o.albumIdx = a.idx;
+select * from shopOrder o  left outer join album a on o.albumIdx = a.idx;
+
 
 

@@ -11,100 +11,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>shopAlbumDetail.jsp</title>
 <jsp:include page="/include/bs4.jsp" />
-<script>
-	'use strict';
-	
-	function modalView(part, content) {
-		$("#myModal #alName").html(part);
-		$("#myModal #singer").html(content);
-		$("#myModal #num").html($("#num").val());
-		myForm.action = "shopCart.shop";
-		myForm.submit();
-	}
-	
-	function numCal(type, ths) {
-		let inputNum = $(ths).parents("td").find("input[name='num']");
-		let cnt = Number(inputNum.val());
-		
-		 if(type == 'p') {
-			 inputNum.val(Number(cnt + 1));
-		 }
-		 else {
-			 if(cnt > 0) inputNum.val(Number(cnt - 1));
-		 }
-	}
-	
-	//장바구니
-	function shopCartCheck() {
-		myForm.action = "shopCartList.shop";
-		myForm.submit();
-	}
-	
-	 //댓글 등록
-	 function reviewCheck() {
-		  let star = starForm.star.value;
-			let content = $("#content").val();
-			
-			if(star.trim() == "") {
-				alert("별점을 부여해주세요.");
-				return false;
-			}
-			if(content.trim() == "") {
-				alert("리뷰를 입력하세요");
-				$("#content").focus();
-				return false;
-			}
-	  	
-			let query = {
-					albumIdx : ${vo.idx},
-					mid : '${sMid}',
-					nickName : '${sNickName}',
-					content : content,
-					star : star
-			}
-			
-	  	$.ajax({
-				url : "albumReviewInput.shop",
-				type : "post",
-				data : query,
-				success : function(res) {
-					if(res == "1") {
-						alert("리뷰가 입력되었습니다.");
-						location.reload();
-					}
-					else {
-						alert("리뷰 입력 실패~");
-					}
-				},
-				error : function() {
-					alert("전송 오류");
-				}
-				
-			});
-		}
-	
-	//댓글 삭제
-  function reviewDelete(idx) {
-			let ans = confirm("선택한 리뷰를 삭제하시겠습니까?");
-			if(!ans) return false;
-			
-			$.ajax ({
-				url : "albumReviewDelete.shop",
-				type : "post",
-				data : {idx : idx},
-				success : function(res) {
-					if(res == "1") {
-						alert("리뷰가 삭제되었습니다.");
-						location.reload();
-					}
-					else alert("리뷰 삭제 실패");
-				},
-				error : function() {
-					alert("전송 실패")
-				}
-			});
-		}
-</script>
 <style>
  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap');
  	body {
@@ -178,7 +84,7 @@
 <jsp:include page="/include/header.jsp" />
 <p><br/></p>
 	<div class="container">
-		<form name="myForm" method="post" action="shopPay.shop">
+		<form name="myForm" method="post">
 			
 			<table class="table table-bordered tbl1">
 				<tr>
@@ -226,10 +132,10 @@
 							</tr>
 							<c:if test="${vo.stock > 0}">
 								<tr>
-									<td><a href="#" onclick="modalView('${vo.alName}','${vo.singer}')" data-toggle="modal" data-target="#myModal" class="btn btn-dark">장바구니</a></td>
+									<td><a href="#" onclick="cartSave('${sMid}')" data-toggle="modal" data-target="#myModal" class="btn btn-dark">장바구니</a></td>
 								</tr>
 								<tr>
-									<td><input type="submit" value="구매하기" class="btn btn-dark"></td>
+									<td><input type="button" onclick="buyCheck()" value="구매하기" class="btn btn-dark"></td>
 								</tr>
 							</c:if>
 							<c:if test="${vo.stock == 0}">
@@ -261,22 +167,20 @@
 	      
 	        <!-- Modal Header -->
 	        <div class="modal-header">
-	          <h4 class="modal-title text-center"><b>장바구니에 담겼습니다.</b></h4>
 	          <button type="button" class="close" data-dismiss="modal">&times;</button>
 	        </div>
 	        
 	        <!-- Modal body -->
 	        <div class="modal-body">
-	          <table class="table table-bordered">
-	          	<tr><th>앨범명</th><td><span id="alName"></span></td></tr>
-	          	<tr><th>가수</th><td><span id="singer"></span></td></tr>
-	          	<tr><th>수량</th><td><span id="num"></span></td></tr>
-	          </table>
+	          <div class="text-center">
+	          	<div style="font-size:15pt">🛒🛒</div>
+	          	<h4><b>상품을 장바구니에 담았습니다</b></h4><br/>
+	          	<button type="button" class="btn btn-secondary" onclick="shopCartCheck()" data-dismiss="modal">바로가기</button>
+	          </div>
 	        </div>
 	        
 	        <!-- Modal footer -->
 	        <div class="modal-footer">
-	          <button type="button" class="btn btn-secondary" onclick="shopCartCheck()" data-dismiss="modal">바로가기</button>
 	          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 	        </div>
 	        
@@ -379,4 +283,143 @@
 <p><br/></p>
 <jsp:include page="/include/footer.jsp" />
 </body>
+<script>
+	'use strict';
+	
+	function modalView(part, content) {
+		$("#myModal #alName").html(part);
+		$("#myModal #singer").html(content);
+		$("#myModal #num").html($("#num").val());
+		myForm.action = "shopCart.shop";
+		myForm.submit();
+	}
+	
+	function numCal(type, ths) {
+		let inputNum = $(ths).parents("td").find("input[name='num']");
+		let cnt = Number(inputNum.val());
+		
+		 if(type == 'p') {
+			 inputNum.val(Number(cnt + 1));
+		 }
+		 else {
+			 if(cnt > 0) inputNum.val(Number(cnt - 1));
+		 }
+	}
+	
+	//장바구니 저장
+	function cartSave(sMid) {
+		let albumIdx = ${vo.idx};
+		let num = $("#num").val().trim();
+		let salePrice = ${salePrice};
+		console.log=('albumIdx',albumIdx);
+		console.log=('salePrice',salePrice);
+		
+		if(sMid == null || sMid == "") {
+			alert("장바구니는 로그인 후에 이용 가능합니다.");
+			location.href="memberLogin.mem";
+		}
+		
+		let query = {
+				albumIdx : albumIdx,
+				num : num,
+				salePrice : salePrice
+		}
+		
+		$.ajax({
+			url : "shopCart.shop",
+			type : "post",
+			data : query,
+			success : function(res) {
+				if(res != "1") alert("장바구니 저장 실패, 다시 시도하세요");
+			},
+			error : function() {
+				alert("전송 오류");
+			}
+		});
+		
+	}
+	
+	//장바구니 바로가기
+	function shopCartCheck() {
+		myForm.action = "shopCartList.shop";
+		myForm.submit();
+	}
+	
+	
+	function buyCheck() {
+		if(${level == 99 && level > 3}) {
+			alert("구매는 로그인 후 가능합니다.")
+			location.href="memberLogin.mem";
+		}
+		else {
+			myForm.action="shopPay.shop"			
+			myForm.submit();
+		} 
+	}
+	
+	 //댓글 등록
+	 function reviewCheck() {
+		  let star = starForm.star.value;
+			let content = $("#content").val();
+			
+			if(star.trim() == "") {
+				alert("별점을 부여해주세요.");
+				return false;
+			}
+			if(content.trim() == "") {
+				alert("리뷰를 입력하세요");
+				$("#content").focus();
+				return false;
+			}
+	  	
+			let query = {
+					albumIdx : ${vo.idx},
+					mid : '${sMid}',
+					nickName : '${sNickName}',
+					content : content,
+					star : star
+			}
+			
+	  	$.ajax({
+				url : "albumReviewInput.shop",
+				type : "post",
+				data : query,
+				success : function(res) {
+					if(res == "1") {
+						alert("리뷰가 입력되었습니다.");
+						location.reload();
+					}
+					else {
+						alert("리뷰 입력 실패~");
+					}
+				},
+				error : function() {
+					alert("전송 오류");
+				}
+				
+			});
+		}
+	
+	//댓글 삭제
+  function reviewDelete(idx) {
+			let ans = confirm("선택한 리뷰를 삭제하시겠습니까?");
+			if(!ans) return false;
+			
+			$.ajax ({
+				url : "albumReviewDelete.shop",
+				type : "post",
+				data : {idx : idx},
+				success : function(res) {
+					if(res == "1") {
+						alert("리뷰가 삭제되었습니다.");
+						location.reload();
+					}
+					else alert("리뷰 삭제 실패");
+				},
+				error : function() {
+					alert("전송 실패")
+				}
+			});
+		}
+</script>
 </html>

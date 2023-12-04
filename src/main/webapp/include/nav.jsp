@@ -61,7 +61,7 @@
 		         <div class="dropdown">
 						    <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" style="color:gray; background-color:black;">MyPage</button>
 						    <div class="dropdown-menu">
-						      <a class="dropdown-item" href="shopCart.shop">장바구니</a>
+						      <a class="dropdown-item" href="shopCartList.shop">장바구니</a>
 						      <a class="dropdown-item" href="memberMain.mem">마이페이지</a>
 						      <a class="dropdown-item" href="#" data-toggle="modal" data-target="#myModalPwdCheck" >회원정보수정</a>
 						      <a class="dropdown-item" href="javascript:memberDelCheck()">회원탈퇴</a>

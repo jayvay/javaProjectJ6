@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <c:set var="ctp" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
@@ -13,6 +14,18 @@
 	body, h2, h4 {
 		font-family: 'Noto Sans KR';
 	}
+	.tbl1 td {
+		padding: 10px;
+		line-height: 150px;
+		text-align: center;
+	}
+	.tbl2 td {
+		padding: 10px;
+	}
+	.tbl2 {
+		line-height: 150px;
+	}
+	
 </style>
 </head>
 <body>
@@ -20,39 +33,35 @@
 <p><br/></p>
 	<div class="container">
 		<h2 class="text-center">주문 내역</h2>
-		<table class="table table-hover">
-			<tr class="table-dark text-dark">
-				<th>주문날짜</th>
-				<th>번호</th>
+		<table class="table table-hover tbl1">
+			<tr class="table-dark text-dark text-center">
+				<th>주문시간</th>
+				<th>주문번호</th>
 				<th>수령인</th>
 				<th>주문상품</th>
 				<th>수량</th>
 				<th>결제금액</th>
-				<th>배송예약날짜</th>
+				<th>배송예약일</th>
 			</tr>
 			<c:forEach var="vo" items="${vos}" varStatus="st">
 				<tr>
-					<td>${vo.orderDate}</td>
+					<td>${fn:substring(vo.orderDate, 0,16)}</td>
 					<td>${vo.idx}</a></td>
 					<td>${vo.name}</td>
-					<td>${vo.alName}</td>
-					<td>
-						<c:if test="${vo.level > 3}"><font color="red"><b><i class="ri-emotion-unhappy-line"></i>탈퇴신청</b></font>
-							<c:if test="${vo.deleteDiff > 30}"><a href="javascript:memberDeleteOk('${vo.idx}')" title="30일경과"><i class="ri-close-circle-fill xIcon"></i></a></c:if>
-						</c:if>
-						<c:if test="${vo.level <= 3}"><i class="ri-emotion-happy-line"></i>활동중</c:if>
+					<td class="td1">
+						<a href="shopAlbumDetail.shop?idx=${vo.albumIdx}">
+						<table class="table table-borderless text-center tbl2">
+							<tr>
+								<td><img src="${vo.photo}" width="150px"/></td>
+								<td>${vo.alName}</td>
+								<td>${vo.singer}</td>
+							</tr>
+						</table>
+						</a>
 					</td>
-					<td>
-						<form name="levelForm">
-							<select name="level" onchange="levelChange(this)">
-								<option value="0/${vo.idx}" ${vo.level==0 ? "selected" : ""}>관리자</option>
-								<option value="1/${vo.idx}" ${vo.level==1 ? "selected" : ""}>일반회원</option>
-								<option value="2/${vo.idx}" ${vo.level==2 ? "selected" : ""}>VIP</option>
-								<option value="3/${vo.idx}" ${vo.level==3 ? "selected" : ""}>VVIP</option>
-								<option value="4/${vo.idx}" ${vo.level > 3 ? "selected" : ""}>탈퇴회원</option>
-							</select>
-						</form>
-					</td>
+					<td>${vo.albumCnt}</td>
+					<td>${vo.finalPrice}</td>
+					<td>${fn:substring(vo.reservDate, 0,10)}</td>
 				</tr>
 				<c:set var="curScrStartNo" value="${curScrStartNo - 1}" />
 			</c:forEach>

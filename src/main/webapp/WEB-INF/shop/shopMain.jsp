@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <c:set var="ctp" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
@@ -67,11 +68,8 @@
 	  color : green;
   }
   .tbl1 {
- 	display: grid;
   	text-align: center;
-  }
-  .tbl2 {
-  	grid-template-columns: repeat(3, 200px);
+  	width: 800px;
   }
 </style>
 <script>
@@ -123,36 +121,32 @@
 		  <div class="left" style="background-color:#bbb;">
 		    <h2>Menu</h2>
 		    <ul id="myMenu" style="text-align:center">
-		      <li><a href="shopMain.shop?part=all">ALL</a></li>
-		      <li><a href="shopMain.shop?part=1/kBallad">BALLAD</a></li>
-		      <li><a href="shopMain.shop?part=1/kDance">DANCE</a></li>
-		      <li><a href="shopMain.shop?part=1/kRock">ROCK</a></li>
-		      <li><a href="shopMain.shop?part=1/kSoul">R&B</a></li>
-		      <li><a href="shopMain.shop?part=1/kIndi">INDI</a></li>
-		      <li><a href="shopMain.shop?part=1/kHiphop">HIPHOP</a></li>
-		      <li><a href="shopMain.shop?part=2/wPop">POP</a></li>
-		      <li><a href="shopMain.shop?part=2/wJPop">J-POP</a></li>
-		      <li><a href="shopMain.shop?part=3/movie">MOVIE OST</a></li>
-		      <li><a href="shopMain.shop?part=3/drama">DRAMA OST</a></li>
-		      <li><a href="shopMain.shop?part=3/musical">MUSICAL OST</a></li>
-		      <li><a href="shopMain.shop?part=3/ani">ANIMATION OST</a></li>
+		      <li><a href="shopMain.shop?part=all&pag=${pag}&pageSize=${pageSize}">ALL</a></li>
+		      <li><a href="shopMain.shop?part=1/kBallad&pag=${pag}&pageSize=${pageSize}">BALLAD</a></li>
+		      <li><a href="shopMain.shop?part=1/kDance&pag=${pag}&pageSize=${pageSize}">DANCE</a></li>
+		      <li><a href="shopMain.shop?part=1/kRock&pag=${pag}&pageSize=${pageSize}">ROCK</a></li>
+		      <li><a href="shopMain.shop?part=1/kSoul&pag=${pag}&pageSize=${pageSize}">R&B</a></li>
+		      <li><a href="shopMain.shop?part=1/kIndi&pag=${pag}&pageSize=${pageSize}">INDI</a></li>
+		      <li><a href="shopMain.shop?part=1/kHiphop&pag=${pag}&pageSize=${pageSize}">HIPHOP</a></li>
+		      <li><a href="shopMain.shop?part=2/wPop&pag=${pag}&pageSize=${pageSize}">POP</a></li>
+		      <li><a href="shopMain.shop?part=2/wJPop&pag=${pag}&pageSize=${pageSize}">J-POP</a></li>
+		      <li><a href="shopMain.shop?part=3/movie&pag=${pag}&pageSize=${pageSize}">MOVIE OST</a></li>
+		      <li><a href="shopMain.shop?part=3/drama&pag=${pag}&pageSize=${pageSize}">DRAMA OST</a></li>
+		      <li><a href="shopMain.shop?part=3/musical&pag=${pag}&pageSize=${pageSize}">MUSICAL OST</a></li>
+		      <li><a href="shopMain.shop?part=3/ani&pag=${pag}&pageSize=${pageSize}">ANIMATION OST</a></li>
 		    </ul>
 		  </div>
 		  
 		  <div class="right">
-		    <table class="table table-bordered text-center tbl1">
+		    <table class="table table-borderless text-center">
 		    	<tr>
 	    			<c:forEach var="vo" items="${vos}" varStatus="st">
-			    		<td>
+			    		<td class="tbl1">
 			    			<div>
-			    				<table class="table table-bordered tbl2">
-			    				<tr><td>
 			    				<a href="shopAlbumDetail.shop?idx=${vo.idx}&alName=${vo.alName}&singer=${vo.singer}">
 			    					<img src="${vo.photo}" width="150px">
-			    					<div class="alName">${vo.alName}</div>
+			    					<div style="width: 250px; margin: 0 auto">${vo.alName}</div>
 			    				</a>
-			    				</td></tr>
-			    				</table>
 			    			</div>
 			    			<div>
 			    				<c:if test="${vo.stock > 0}">
@@ -160,7 +154,7 @@
 									<fmt:formatNumber value="${salePrice}" pattern="#,###"/> 
 								</c:if>
 								<c:if test="${vo.stock == 0}">
-									품절
+									<font color="red">품절</font>
 								</c:if>
 			    			</div>
 	    					<c:if test="${sLevel == 0}">

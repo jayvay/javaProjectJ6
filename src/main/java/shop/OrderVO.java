@@ -15,6 +15,10 @@ public class OrderVO {
 	private int albumCnt;
 	private int finalPrice;
 	
+	private String alName;
+	private String singer;
+	private String photo;
+	
 	public int getIdx() {
 		return idx;
 	}
@@ -87,12 +91,31 @@ public class OrderVO {
 	public void setFinalPrice(int finalPrice) {
 		this.finalPrice = finalPrice;
 	}
+	public String getAlName() {
+		return alName;
+	}
+	public void setAlName(String alName) {
+		this.alName = alName;
+	}
+	public String getSinger() {
+		return singer;
+	}
+	public void setSinger(String singer) {
+		this.singer = singer;
+	}
+	public String getPhoto() {
+		return photo;
+	}
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
 	
 	@Override
 	public String toString() {
 		return "OrderVO [idx=" + idx + ", albumIdx=" + albumIdx + ", mid=" + mid + ", name=" + name + ", tel=" + tel
 				+ ", address=" + address + ", content=" + content + ", payment=" + payment + ", orderDate=" + orderDate
-				+ ", reservDate=" + reservDate + ", albumCnt=" + albumCnt + ", finalPrice=" + finalPrice + "]";
+				+ ", reservDate=" + reservDate + ", albumCnt=" + albumCnt + ", finalPrice=" + finalPrice + ", alName=" + alName
+				+ ", singer=" + singer + ", photo=" + photo + "]";
 	}
 	
 }

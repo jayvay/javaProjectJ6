@@ -21,7 +21,7 @@
 		line-height: 132px;
 	}
 	.tbl1 th, .tbl1 td {
-		width: 25%
+		width: 25%;
 	}
 	.tbl3 th, .tbl4 td {
 		background-color: #eee;
@@ -197,8 +197,8 @@
 							<c:if test="${totPrice >= 15000}"><em>0</em> 원 <i class="ri-add-circle-fill"></i></c:if>
 						</td>
 						<td id="totPr">
-							<c:if test="${totPrice < 15000}"><em>${totPrice + 2500}</em> 원</c:if>
-							<c:if test="${totPrice >= 15000}"><em>${totPrice}</em> 원</c:if>
+							<c:if test="${totPrice < 15000}"><em><fmt:formatNumber value="${totPrice + 2500}" pattern="#,###"/></em> 원</c:if>
+							<c:if test="${totPrice >= 15000}"><em><fmt:formatNumber value="${totPrice}" pattern="#,###"/></em> 원</c:if>
 						</td>
 					</tr>
 					</tbody>
@@ -207,17 +207,17 @@
 						<td>
 							<dl>
 								<dt>상품 ${num}종(${num}개)</dt>
-								<dd>${totPrice} 원</dd>
+								<dd><fmt:formatNumber value="${aVo.price}" pattern="#,###"/> 원</dd>
 							</dl>
 							<dl>
 								<dt>즉시할인</dt>
-								<dd>${aVo.price - salePrice} 원</dd>
+								<dd><fmt:formatNumber value="${aVo.price - salePrice}" pattern="#,###"/> 원</dd>
 							</dl>
 						</td>
 						<td>
 							<dl>
-							<c:if test="${totPrice < 15000}"><dt>배송비</dt><dd>2,500 원</dd></c:if>
-							<c:if test="${totPrice >= 15000}"><dt>배송비</dt><dd>0 원</dd></c:if>
+								<c:if test="${totPrice < 15000}"><dt>배송비</dt><dd>2,500 원</dd></c:if>
+								<c:if test="${totPrice >= 15000}"><dt>배송비</dt><dd>0 원</dd></c:if>
 							</dl>
 						</td>
 						<td>

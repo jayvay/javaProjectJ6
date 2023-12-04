@@ -8,7 +8,7 @@ create table album (
 	discount int default 0,
 	part varchar(20) not null,
 	relDate datetime default now(),
-	disc varchar(100),
+	disc text,
 	content text,
 	stock int default 0,
 	saleCnt int default 0,

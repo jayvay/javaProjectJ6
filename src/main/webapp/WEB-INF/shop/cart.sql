@@ -7,7 +7,6 @@ create table cart (
 	albumCnt int default 1,
 	salePrice int not null,
 	
-	foreign key(mid) references member(mid),
 	foreign key(albumIdx) references album(idx)
 	on update cascade	-- 부모필드를 수정하면 함께 영향을 받는다
 	on delete restrict 	-- 부모필드를 함부로 삭제할 수 없다
@@ -17,5 +16,17 @@ drop table cart;
 
 insert into cart values (default, 'admin', 6, 1, 19040);
 
-select * from cart c left outer join album a on c.albumIdx = a.idx;
+select * from cart c left outer join album a on c.albumIdx = a.idx where mid = 'admin';
+
+select *,count(*) as totAlbumCnt from cart where albumIdx = 53 group by albumIdx , mid;
+
+
+select * from cart c left outer join album a on c.albumIdx = a.idx where mid = 'admin';
+
+select *,count(*) as totAlbumCnt from cart where albumIdx = 53 group by albumIdx , mid;
+
+select *,(select count(*) from cart where albumIdx = 53 and mid = 'admin') as totAlbumCnt from album a, cart c where a.idx=53 and c.mid = 'admin' and c.albumIdx=53 group by c.albumIdx;
+
+
+
 

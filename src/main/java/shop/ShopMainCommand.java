@@ -37,7 +37,7 @@ public class ShopMainCommand implements ShopInterface {
 			
 			//블록페이징 처리 (시작블록의 번호를 0번으로 처리했다)
 			//1. 블록의 크기 결정 (여기선 3으로 해보자)
-			int blockSize = 3;
+			int blockSize = 2;
 			
 			//2. 현재 페이지가 속한 블록 번호를 구한다. (예:총 레코드 개수가 38개일 때 1,2,3페이지는 0블록/ 4,5,6페이지는 1블록
 			int curBlock = (pag - 1) / blockSize;
@@ -50,6 +50,7 @@ public class ShopMainCommand implements ShopInterface {
 		ArrayList<AlbumVO> vos = dao.getAlbumList(startIndexNo, pageSize, part);
 		
 		request.setAttribute("vos", vos);
+		request.setAttribute("part", part);
 		request.setAttribute("pag", pag);
 		request.setAttribute("pageSize", pageSize);
 		request.setAttribute("totPage", totPage);

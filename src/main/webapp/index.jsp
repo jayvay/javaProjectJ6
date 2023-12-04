@@ -19,21 +19,21 @@
   <div class="mySlides w3-display-container w3-center">
     <img src="https://images.squarespace-cdn.com/content/v1/55695205e4b0b0ed5ed23665/1506018364510-WCAXI9GXIRXFXVAL4NY5/TicketMaster+Day6.jpg?format=2500w" style="width:100%">
     <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
-      <h3>Los Angeles</h3>
+      <h3>DAY6</h3>
       <p><b>We had the best time playing at Venice Beach!</b></p>   
     </div>
   </div>
   <div class="mySlides w3-display-container w3-center">
     <img src="https://image.harpersbazaar.co.kr/wp-content/uploads/2018/11/bz-201812-206-003.jpg" style="width:100%">
     <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
-      <h3>New York</h3>
+      <h3>KIHA & THE FACES</h3>
       <p><b>The atmosphere in New York is lorem ipsum.</b></p>    
     </div>
   </div>
   <div class="mySlides w3-display-container w3-center">
     <img src="https://masterpeacedotblog.files.wordpress.com/2018/01/ed9881ec98a42.jpg" style="width:100%">
     <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
-      <h3>Chicago</h3>
+      <h3>HYUKOH</h3>
       <p><b>Thank you, Chicago - A night we won't forget.</b></p>    
     </div>
   </div>
@@ -45,7 +45,7 @@
     <p class="w3-justify">We have created a fictional band website. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
       ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur
       adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-    <div class="w3-row w3-padding-32">
+   <!--  <div class="w3-row w3-padding-32">
       <div class="w3-third">
         <p>Name</p>
         <img src="/w3images/bandmember.jpg" class="w3-round w3-margin-bottom" alt="Random Name" style="width:60%">
@@ -58,47 +58,47 @@
         <p>Name</p>
         <img src="/w3images/bandmember.jpg" class="w3-round" alt="Random Name" style="width:60%">
       </div>
-    </div>
+    </div> -->
   </div>
 
   <!-- The Tour Section -->
   <div class="w3-black" id="tour">
     <div class="w3-container w3-content w3-padding-64" style="max-width:800px">
-      <h2 class="w3-wide w3-center">TOUR DATES</h2>
-      <p class="w3-opacity w3-center"><i>Remember to book your tickets!</i></p><br>
+      <h2 class="w3-wide w3-center">RECOMMEND</h2>
+      <p class="w3-opacity w3-center"><i>This is the music I recommend to you</i></p><br>
 
       <ul class="w3-ul w3-border w3-white w3-text-grey">
-        <li class="w3-padding">September <span class="w3-tag w3-red w3-margin-left">Sold out</span></li>
-        <li class="w3-padding">October <span class="w3-tag w3-red w3-margin-left">Sold out</span></li>
+        <li class="w3-padding">September <span class="w3-tag w3-red w3-margin-left">new</span></li>
+        <li class="w3-padding">October <span class="w3-tag w3-red w3-margin-left">new</span></li>
         <li class="w3-padding">November <span class="w3-badge w3-right w3-margin-right">3</span></li>
       </ul>
 
       <div class="w3-row-padding w3-padding-32" style="margin:0 -16px">
         <div class="w3-third w3-margin-bottom">
-          <img src="/w3images/newyork.jpg" alt="New York" style="width:100%" class="w3-hover-opacity">
+          <img src="https://image.aladin.co.kr/product/32822/29/cover500/c212937446_2.jpg" alt="New York" style="width:100%" class="w3-hover-opacity">
           <div class="w3-container w3-white">
-            <p><b>New York</b></p>
-            <p class="w3-opacity">Fri 27 Nov 2016</p>
-            <p>Praesent tincidunt sed tellus ut rutrum sed vitae justo.</p>
-            <button class="w3-button w3-black w3-margin-bottom" onclick="document.getElementById('ticketModal').style.display='block'">Buy Tickets</button>
+            <p><b>NEW ALBUM!!</b></p>
+            <p class="w3-opacity">태연 (TAEYEON) - 미니앨범 5집 : To. X</p>
+            <p>태연의 5번째 미니 앨범을 만나보세요</p>
+            <button class="w3-button w3-black w3-margin-bottom"  onclick="javascript:location.href='shopAlbumDetail.shop?idx=11';">DETAIL</button>
           </div>
         </div>
         <div class="w3-third w3-margin-bottom">
-          <img src="/w3images/paris.jpg" alt="Paris" style="width:100%" class="w3-hover-opacity">
+          <img src="https://image.aladin.co.kr/product/5992/94/cover500/4775062700_1.jpg" alt="Paris" style="width:100%" class="w3-hover-opacity">
           <div class="w3-container w3-white">
-            <p><b>Paris</b></p>
-            <p class="w3-opacity">Sat 28 Nov 2016</p>
-            <p>Praesent tincidunt sed tellus ut rutrum sed vitae justo.</p>
-            <button class="w3-button w3-black w3-margin-bottom" onclick="document.getElementById('ticketModal').style.display='block'">Buy Tickets</button>
+            <p><b>BEST ALBUM!!</b></p>
+            <p class="w3-opacity">혁오 (hyukoh) - 22</p>
+            <p>혁오의 전설의 앨범을 추천드립니다</p>
+            <button class="w3-button w3-black w3-margin-bottom" onclick="javascript:location.href='shopAlbumDetail.shop?idx=45';">DETAIL</button>
           </div>
         </div>
         <div class="w3-third w3-margin-bottom">
-          <img src="/w3images/sanfran.jpg" alt="San Francisco" style="width:100%" class="w3-hover-opacity">
+          <img src="https://image.aladin.co.kr/product/21538/46/cover500/c392831138_1.jpg" alt="San Francisco" style="width:100%" class="w3-hover-opacity">
           <div class="w3-container w3-white">
-            <p><b>San Francisco</b></p>
-            <p class="w3-opacity">Sun 29 Nov 2016</p>
-            <p>Praesent tincidunt sed tellus ut rutrum sed vitae justo.</p>
-            <button class="w3-button w3-black w3-margin-bottom" onclick="document.getElementById('ticketModal').style.display='block'">Buy Tickets</button>
+            <p><b>Merry Christmas!!</b></p>
+            <p class="w3-opacity">Mariah Carey - Merry Christmas</p>
+            <p>이번 크리스마스에는 이 앨범을 들어보세요</p>
+            <button class="w3-button w3-black w3-margin-bottom" onclick="javascript:location.href='shopAlbumDetail.shop?idx=35';">DETAIL</button>
           </div>
         </div>
       </div>
@@ -188,12 +188,12 @@ function myFunction() {
 }
 
 // When the user clicks anywhere outside of the modal, close it
-var modal = document.getElementById('ticketModal');
+/* var modal = document.getElementById('ticketModal');
 window.onclick = function(event) {
   if (event.target == modal) {
     modal.style.display = "none";
   }
-}
+} */
 </script>
 <p><br/></p>
 <jsp:include page="/include/footer.jsp" />

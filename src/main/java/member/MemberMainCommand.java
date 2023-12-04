@@ -23,6 +23,8 @@ public class MemberMainCommand implements MemberInterface {
 		ArrayList<OrderVO> vos = dao.getMyOrderList(mid);
 		
 		request.setAttribute("vos", vos);
+		
+		
 	}
 
 }

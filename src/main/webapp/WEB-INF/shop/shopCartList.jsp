@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>shopCart.jsp</title>
+<title>shopCartList.jsp</title>
 <jsp:include page="/include/bs4.jsp" />
 <style>
  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap');
@@ -17,6 +17,23 @@
 	}
 	a {
 		text-decoration: none;
+	}
+	#totPr {
+		font-size: 15pt;
+		font-weight: bold;
+	}
+	.tbl1 th {
+		background-color: #eee;
+	}
+	.tbl1 td {
+		line-height: 132px;
+	}
+	.tbl2 th {
+		color: white;
+		background-color: #353a40;
+	}
+	.tbl2 {
+		background-color: #eee;
 	}
 </style>
 </head>
@@ -28,7 +45,7 @@
 			<h2>장 바 구 니</h2>
 			<p><br/></p>
 			<h4>상품확인</h4>
-				<table class="table text-center tbl2">
+				<table class="table text-center tbl1">
 					<thead>
 					<tr>
 						<th>상품명</th>
@@ -62,7 +79,7 @@
 				
 				<p><br/></p>
 				<h4>결제정보</h4>
-				<table class="table table-bordered">
+				<table class="table table-bordered tbl2">
 					<thead>
 					<tr>
 						<th>총 상품금액</th>
@@ -72,9 +89,15 @@
 					</thead>
 					<tbody>
 					<tr>
-						<td><em><fmt:formatNumber value="${totPrice}" pattern="#,###"/></em> <i class="ri-add-circle-fill"></i></td>
-						<td><em>2,500</em> 원 <i class="ri-add-circle-fill"></i></td>
-						<td><em>${totPrice + 2500}</em> 원</td>
+						<td><em><fmt:formatNumber value="${cartTotSalePrice}" pattern="#,###"/></em> <i class="ri-add-circle-fill"></i></td>
+						<td>
+							<c:if test="${cartTotSalePrice < 15000}"><em>2,500</em> 원 <i class="ri-add-circle-fill"></i></c:if>
+							<c:if test="${cartTotSalePrice >= 15000}"><em>0</em> 원 <i class="ri-add-circle-fill"></i></c:if>
+						</td>
+						<td id="totPr">
+							<c:if test="${cartTotSalePrice < 15000}"><em><fmt:formatNumber value="${cartTotSalePrice + 2500}" pattern="#,###"/></em> 원</c:if>
+							<c:if test="${cartTotSalePrice >= 15000}"><em><fmt:formatNumber value="${cartTotSalePrice}" pattern="#,###"/></em> 원</c:if>
+						</td>
 					</tr>
 					</tbody>
 					<tfoot>
@@ -82,21 +105,24 @@
 						<td>
 							<dl>
 								<dt>상품 ${fn:length(vos)}종(${fn:length(vos)}개)</dt>
-								<dd>${totPrice} 원</dd>
+								<dd><fmt:formatNumber value="${cartTotPrice}" pattern="#,###"/> 원</dd>
 							</dl>
 							<dl>
 								<dt>즉시할인</dt>
-								<dd>${vo.price - vo.salePrice} 원</dd>
+								<dd><fmt:formatNumber value="${cartTotDiscount}" pattern="#,###"/> 원</dd>
 							</dl>
 						</td>
 						<td>
 							<dl>
-								<dt>배송비</dt>
-								<dd>2,500 원</dd>
+								<c:if test="${cartTotSalePrice < 15000}"><dt>배송비</dt><dd>2,500 원</dd></c:if>
+								<c:if test="${cartTotSalePrice >= 15000}"><dt>배송비</dt><dd>0 원</dd></c:if>
 							</dl>
 						</td>
 						<td>
 						</td>
+					</tr>
+					<tr>
+						<td colspan="3"><input type="button" value="주문하기" class="btn btn-dark form-control"/></td>
 					</tr>
 					</tfoot>
 				</table>

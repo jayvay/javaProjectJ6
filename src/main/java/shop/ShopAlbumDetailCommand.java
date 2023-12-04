@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class ShopAlbumDetailCommand implements ShopInterface {
 
@@ -14,6 +15,8 @@ public class ShopAlbumDetailCommand implements ShopInterface {
 		int idx = request.getParameter("idx")==null ? 0 : Integer.parseInt(request.getParameter("idx"));
 		String alName = request.getParameter("alName")==null ? "" : request.getParameter("alName");
 		String singer = request.getParameter("singer")==null ? "" : request.getParameter("singer");
+		HttpSession session = request.getSession();
+		int level = session.getAttribute("sLevel")==null ? 99 : (int)session.getAttribute("sLevel");
 		
 		ShopDAO dao = new ShopDAO();
 		
@@ -31,6 +34,7 @@ public class ShopAlbumDetailCommand implements ShopInterface {
 		else reviewAvg = 0;
 		
 		request.setAttribute("vo", vo);
+		request.setAttribute("level", level);
 		request.setAttribute("reviewVos", reviewVos);
 		request.setAttribute("reviewAvg", reviewAvg);
 	}
