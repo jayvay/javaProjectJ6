@@ -17,6 +17,8 @@ create table album (
 	unique key(alName)
 );
 
+select * from cart c left outer join album a on c.albumIdx = a.idx where mid = 'admin' ;
+
 alter table album add column photo varchar(100) default 'noImage.jpg';
 drop table album;
 

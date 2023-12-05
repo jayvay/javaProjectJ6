@@ -55,7 +55,6 @@
 	    			let mids = res.split("/");
 	    			str = '검색결과 : <br/><b>';
 	    			for(let i=0; i<mids.length; i++) {
-	    				let jump = Math.floor((Math.random()*(3-2)) + 2);
 	    				let tempMid = mids[i].substring(0,2);
 	    				for(let j=1; j<mids[i].length-1; j++) {
 	    					tempMid += "*";
@@ -131,7 +130,7 @@
 	  	    <!-- <th class="text-center col-1">아이디</th> -->
 	  	    <td class="col-2 m-0 p-0 text-center">
 	  	      <input type="text" name="mid" id="mid" value="${mid}" placeholder="아이디" class="form-control" style="margin-bottom:1px;" autofocus required />
-	  	      <input type="password" name="pwd" id="pwd" value="1234" class="form-control" required />  	    
+	  	      <input type="password" name="pwd" id="pwd" placeholder="비밀번호" class="form-control" required />  	    
 	  	    </td>
 	  	  </tr>
 	  	  <tr>

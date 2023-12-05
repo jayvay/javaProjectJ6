@@ -88,7 +88,14 @@
 			
 			<table class="table table-bordered tbl1">
 				<tr>
-					<td style="width:300px"><img src="${vo.photo}"></td>
+					<td style="width:300px">
+						<c:if test="${fn:contains(vo.photo, 'https://')}">
+  						<img src="${vo.photo}">
+  					</c:if>
+  					<c:if test="${not fn:contains(vo.photo, 'https://')}">
+  						<img src="${ctp}/images/album/${vo.photo}">
+  					</c:if>
+					</td>
 					<td>
 						<h3><i class="ri-album-fill"></i>&nbsp;<b>${vo.alName}</b></h3>
 						<div>${vo.singer} | ${fn: substring(vo.relDate, 0,10)}</div>
@@ -311,8 +318,6 @@
 		let albumIdx = ${vo.idx};
 		let num = $("#num").val().trim();
 		let salePrice = ${salePrice};
-		console.log=('albumIdx',albumIdx);
-		console.log=('salePrice',salePrice);
 		
 		if(sMid == null || sMid == "") {
 			alert("장바구니는 로그인 후에 이용 가능합니다.");

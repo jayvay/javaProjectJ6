@@ -96,7 +96,13 @@
 					<tbody>
 					<tr>
 						<td class="text-left">
-							<img src="${aVo.photo}" style="width:150px; height:150px; margin:0 20px;"/>
+							<c:if test="${fn:contains(aVo.photo, 'https://')}">
+    						<img src="${aVo.photo}" style="width:150px; height:150px; margin:0 20px;"/>
+    					</c:if>
+    					<c:if test="${not fn:contains(aVo.photo, 'https://')}">
+    						<img src="${ctp}/images/album/${aVo.photo}" style="width:150px; height:150px; margin:0 20px;">
+    					</c:if>
+							
 							<a href="shopAlbumDetail.shop?idx=${aVo.idx}">${aVo.alName}</a>
 						</td>
 						<td><fmt:formatNumber value="${aVo.price}" pattern="#,###"/></td>

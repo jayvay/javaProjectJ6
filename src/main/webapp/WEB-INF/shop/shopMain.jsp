@@ -144,7 +144,12 @@
 			    		<td class="tbl1">
 			    			<div>
 			    				<a href="shopAlbumDetail.shop?idx=${vo.idx}&alName=${vo.alName}&singer=${vo.singer}">
-			    					<img src="${vo.photo}" width="150px">
+			    					<c:if test="${fn:contains(vo.photo, 'https://')}">
+			    						<img src="${vo.photo}" width="150px">
+			    					</c:if>
+			    					<c:if test="${not fn:contains(vo.photo, 'https://')}">
+			    						<img src="${ctp}/images/album/${vo.photo}" width="150px">
+			    					</c:if>
 			    					<div style="width: 250px; margin: 0 auto">${vo.alName}</div>
 			    				</a>
 			    			</div>

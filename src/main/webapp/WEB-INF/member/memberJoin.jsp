@@ -79,7 +79,7 @@
 	    	return false;
 	    }
 	    else if(!regPwd.test(pwd)) {
-	    	alert("비밀번호는 1개 이상의 문자와 특수문자 조합의 6~24자리로 입력해주세요.");
+	    	alert("비밀번호는 4~10자리의 영문 대/소문자와 숫자 조합의 4~20자리로 입력해주세요.");
 	    	myForm.pwd.focus();
 	    	return false;
 	    }
@@ -160,7 +160,7 @@
         </div>
         <div class="form-group">
             <label for="pwd">비밀번호</label>
-            <input type="password" name="pwd" id="pwd" placeholder="비밀번호 (1개 이상의 문자와 특수문자 조합의 6~24자리)" class="form-control" required />
+            <input type="password" name="pwd" id="pwd" placeholder="비밀번호 (4~10자리의 영문 대/소문자와 숫자 조합의 4~20자리)" class="form-control" required />
             <div class="invalid-feedback">필수 정보입니다.</div>
         </div>
         <div class="form-group">

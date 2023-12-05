@@ -60,7 +60,13 @@
 					<c:forEach var="vo" items="${vos}" varStatus="st">
 						<tr>
 							<td class="text-left">
-								<img src="${vo.photo}" style="width:150px; height:150px; margin:0 20px;"/>
+								<c:if test="${fn:contains(vo.photo, 'https://')}">
+	    						<img src="${vo.photo}" style="width:150px; height:150px; margin:0 20px;"/>
+	    					</c:if>
+	    					<c:if test="${not fn:contains(vo.photo, 'https://')}">
+	    						<img src="${ctp}/images/album/${vo.photo}" style="width:150px; height:150px; margin:0 20px;">
+	    					</c:if>
+								
 								<a href="shopAlbumDetail.shop">${vo.alName}</a>
 							</td>
 							<td><fmt:formatNumber value="${vo.price}" pattern="#,###"/></td>

@@ -2,10 +2,10 @@ show tables;
 
 create table cart (
 	idx int not null auto_increment primary key, -- 장바구니번호
-	mid varchar(30) not null,				 -- 주문자 아이디
-	albumIdx int not null,	
-	albumCnt int default 1,
-	salePrice int not null,
+	mid varchar(30) not null,				-- 주문자 아이디
+	albumIdx int not null,					-- 앨범 고유번호
+	albumCnt int default 1,					-- 앨범 개수
+	salePrice int not null,					-- 앨범 가격
 	
 	foreign key(albumIdx) references album(idx)
 	on update cascade	-- 부모필드를 수정하면 함께 영향을 받는다

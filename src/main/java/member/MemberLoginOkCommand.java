@@ -58,6 +58,8 @@ public class MemberLoginOkCommand implements MemberInterface {
 			else {
 				cookieMid.setMaxAge(0);
 			}
+			System.out.println("cookieMid : "+cookieMid);
+			System.out.println("idSave : "+idSave);
 			response.addCookie(cookieMid);
 			
 			request.setAttribute("msg", mid + "님 로그인 되었습니다.");

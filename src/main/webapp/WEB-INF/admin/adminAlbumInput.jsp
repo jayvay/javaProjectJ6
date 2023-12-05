@@ -66,12 +66,12 @@
 		if(e.files && e.files[0]) {
 			let reader = new FileReader();
 			reader.onload = function(e) {
-				document.getElementById("demo").src = e.target.result;
+				document.getElementById("photoDemo").src = e.target.result;
 			}
 			reader.readAsDataURL(e.files[0]);
 		}  			
 		else {
-			document.getElementById("demo").src = "";
+			document.getElementById("photoDemo").src = "";
 		}
 	}
 	
@@ -125,7 +125,7 @@
 		parts.detach();
 
 	  $("#part1").change(update_selected);
-	  $("#part1").trigger("change");
+	 /*  $("#part1").trigger("change"); */
 	});
 </script>
 </head>
@@ -139,7 +139,7 @@
 					<td style="width:50%">
 						<div class="form-group">
 						<label for="photo">앨범커버</label>
-							<div class="text-center"><img src="${ctp}/images/noImage.jpg" id="demo" width="300px" /></div><br/>
+							<div class="text-center"><img src="${ctp}/images/noImage.jpg" id="photoDemo" width="300px" /></div><br/>
 							<input type="file" name="photo" id="photo" onchange="imgCheck(this)" class="form-control-file border mb-2" />
 						</div>
 						<div class="form-group">

@@ -39,7 +39,7 @@
 </script>
 <nav class="navbar navbar-expand-sm navbar-dark" style="background-color:black">
 	<!-- 햄버거 버튼 -->
-  <a class="navbar-brand" href="http://192.168.50.52:9090/javaProjectJ6">Home</a>
+  <a class="navbar-brand" href="http://49.142.157.251:9090/javaProjectJ6">Home</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
     <span class="navbar-toggler-icon"></span>
   </button>

@@ -270,8 +270,9 @@ public class ShopDAO {
 	public ArrayList<CartVO> getCartAlbumList(String mid) {
 		ArrayList<CartVO> vos = new ArrayList<CartVO>();
 		try {
-			sql = "select * from cart c left outer join album a on c.albumIdx = a.idx;";
+			sql = "select * from cart c left outer join album a on c.albumIdx = a.idx where mid = ?";
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mid);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -435,6 +436,38 @@ public class ShopDAO {
 			rsClose();
 		}
 		return resIdx;
+	}
+
+	public ArrayList<CartVO> getGroupCartAlbumList(String mid) {
+		ArrayList<CartVO> vos = new ArrayList<CartVO>();
+		try {
+			sql = "select * from cart c left outer join album a on c.albumIdx = a.idx where mid = ? group by c.albumIdx";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mid);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				CartVO vo = new CartVO();
+				vo.setIdx(rs.getInt("idx"));
+				vo.setMid(rs.getString("mid"));
+				vo.setAlbumIdx(rs.getInt("albumIdx"));
+				vo.setAlbumCnt(rs.getInt("albumCnt"));
+				vo.setSalePrice(rs.getInt("salePrice"));
+				vo.setAlName(rs.getString("alName"));
+				vo.setSinger(rs.getString("singer"));
+				vo.setPrice(rs.getInt("price"));
+				vo.setDiscount(rs.getInt("discount"));
+				vo.setStock(rs.getInt("stock"));
+				vo.setSaleCnt(rs.getInt("saleCnt"));
+				vo.setPhoto(rs.getString("photo"));
+				vos.add(vo);
+			}
+		} catch (Exception e) {
+			System.out.println("SQL 오류 : " + e.getMessage());
+		} finally {
+			rsClose();
+		}
+		return vos;
 	}
 	
 }
